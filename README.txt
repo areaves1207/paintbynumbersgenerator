@@ -12,3 +12,6 @@ Changing VSCode from PS to Git Bash:
         Click on the dropdown menu and select "Git Bash".
     Restart VS Code.
     Open a fresh terminal.
+
+For CV2:
+pip install opencv-python

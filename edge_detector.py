@@ -1,4 +1,7 @@
 import cv2 as cv
+import numpy as np
+import matplotlib.pyplot as plt
+import gaussian as g
 
 # #Canny edge detector steps:
 # Apply Gaussian filter to smooth the image in order to remove the noise
@@ -10,8 +13,11 @@ import cv2 as cv
 #0) Import image and turn into greyscale:
 img = cv.imread("test_images/woman_in_hallway.png", 0) #Read in file as greyscale img
 
-cv.imshow('Grayscale Image', img)
-cv.waitKey(0)
-cv.destroyAllWindows()
-
 #1) Apply gaussian filters to x and y
+
+size = 5
+sigma = 2 #TODO: play around with these numbers to see what works best and not.
+
+gaussian_kernel = g.gaussian_kernel(size, sigma)
+
+img_gaussian_dx, img_gaussian_dy = g.apply_gaussian_to_img(img, gaussian_kernel)
