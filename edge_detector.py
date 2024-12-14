@@ -16,7 +16,7 @@ img = cv.imread("test_images/woman_in_hallway.png", 0) #Read in file as greyscal
 #1) Apply gaussian filters to x and y
 
 size = 5
-sigma = 1 #TODO: play around with these numbers to see what works best and not.
+sigma = 2 #TODO: play around with these numbers to see what works best and not.
 
 gaussian = GaussianImage(size, sigma, img)
 gaussian.show_filtered_images()
