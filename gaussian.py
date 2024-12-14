@@ -10,8 +10,9 @@ class GaussianImage:
         self.kernel = gaussian_kernel(size, sigma)
         # self.dx = gaussian_derivative_x(self.kernel, size)
         # self.dy = gaussian_derivative_y(self.kernel, size)
-        
-        self.img_dx, self.img_dy = apply_gaussian_to_img(img, self.kernel, self.size)
+        smoothed_img = cv.filter2D(img, -1, self.kernel) #maybe we dont need this. Will smooth the img w/ gaussian b4 using dy dx
+
+        self.img_dx, self.img_dy = generate_img_gradients(smoothed_img, size)
         self.magnitude, self.orientation = get_magnitude_and_orientation(self.img_dx, self.img_dy)
         
     def show_filtered_images(self): #chatgpt generated to display the imgs to test
@@ -51,22 +52,11 @@ def gaussian_kernel(size, sigma): #NOTE: size is kernel size, sigma is how inten
 # def get_gaussian_derivatives(kernel, size=5):
 #     return (gaussian_derivative_x(kernel, size), gaussian_derivative_y(kernel, size))
     
-def gaussian_derivative_x(kernel, size=5):
-    kernel_x = cv.Sobel(kernel, cv.CV_64F, 1, 0, ksize=size)
-    return kernel_x
-
-def gaussian_derivative_y(kernel, size=5):
-    kernel_y = cv.Sobel(kernel, cv.CV_64F, 0, 1, ksize=size)
-    return kernel_y
+def generate_img_gradients(img, size=5): #NOTE: RETURNS DY, DX
+    dx = cv.Sobel(img, cv.CV_64F, 1, 0, ksize=size)
+    dy = cv.Sobel(img, cv.CV_64F, 0, 1, ksize=size)
+    return (dy, dx)
     
-def apply_gaussian_to_img(img, kernel, size):
-    dx = gaussian_derivative_x(kernel, size)
-    dy = gaussian_derivative_y(kernel, size)
-
-    img_dx = cv.filter2D(img, -1, dy)
-    img_dy = cv.filter2D(img, -1, dx)
-    return (img_dx, img_dy)
-
 def get_magnitude_and_orientation(img_dy, img_dx):
     magnitude = np.sqrt(img_dx**2 + img_dy**2) 
     orientation = np.atan2(img_dy, img_dx)
