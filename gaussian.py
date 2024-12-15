@@ -3,16 +3,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 class GaussianImage:
-    def __init__(self, size, sigma, img): #i dont like adding image here, seems coupled. TODO maybe refactor idk
+    def __init__(self, size, sigma, img):
         self.size = size
         self.sigma = sigma
         
         self.kernel = gaussian_kernel(size, sigma)
-        # self.dx = gaussian_derivative_x(self.kernel, size)
-        # self.dy = gaussian_derivative_y(self.kernel, size)
         smoothed_img = cv.filter2D(img, -1, self.kernel) #maybe we dont need this. Will smooth the img w/ gaussian b4 using dy dx
 
-        self.img_dx, self.img_dy = generate_img_gradients(smoothed_img, size)
+        self.img_dy, self.img_dx = generate_img_gradients(smoothed_img, size)
         self.magnitude, self.orientation = get_magnitude_and_orientation(self.img_dx, self.img_dy)
         
     def show_filtered_images(self): #chatgpt generated to display the imgs to test
@@ -49,15 +47,14 @@ def gaussian_kernel(size, sigma): #NOTE: size is kernel size, sigma is how inten
     square_kernel = kernel @ kernel.T #turn the 1d array into a size x size matrix
     return square_kernel
     
-# def get_gaussian_derivatives(kernel, size=5):
-#     return (gaussian_derivative_x(kernel, size), gaussian_derivative_y(kernel, size))
-    
 def generate_img_gradients(img, size=5): #NOTE: RETURNS DY, DX
     dx = cv.Sobel(img, cv.CV_64F, 1, 0, ksize=size)
     dy = cv.Sobel(img, cv.CV_64F, 0, 1, ksize=size)
     return (dy, dx)
     
-def get_magnitude_and_orientation(img_dy, img_dx):
-    magnitude = np.sqrt(img_dx**2 + img_dy**2) 
+def get_magnitude_and_orientation(img_dy, img_dx, mag_threshold = 50):
+    magnitude = np.sqrt(img_dx**2 + img_dy**2)
+    magnitude[magnitude < mag_threshold] = 0 #threshold to reduce noise
+
     orientation = np.atan2(img_dy, img_dx)
     return (magnitude, orientation)
