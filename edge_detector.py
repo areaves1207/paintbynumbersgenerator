@@ -1,6 +1,7 @@
 import cv2 as cv
 import numpy as np
 import matplotlib.pyplot as plt
+import skimage
 from gaussian import GaussianImage
 
 # #Canny edge detector steps:
@@ -21,3 +22,11 @@ sigma = 3 #TODO: play around with these numbers to see what works best and not.
 gaussian = GaussianImage(size, sigma, img)
 gaussian.show_filtered_images()
 
+#2) Find the intensity gradients of the image
+magnitude = gaussian.magnitude
+orientation = gaussian.orientation
+
+#3) Non-maximum supression:
+    #a Thin multi-pixel wide "ridges" to single pixel width
+
+# interpolated_img = skimage.transform.rescale(1, 2, order=3)

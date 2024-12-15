@@ -56,5 +56,5 @@ def get_magnitude_and_orientation(img_dy, img_dx, mag_threshold = 50):
     magnitude = np.sqrt(img_dx**2 + img_dy**2)
     magnitude[magnitude < mag_threshold] = 0 #threshold to reduce noise
 
-    orientation = np.atan2(img_dy, img_dx)
+    orientation = np.atan2(img_dy, img_dx) #order is dy, dx
     return (magnitude, orientation)
