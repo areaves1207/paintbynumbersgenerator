@@ -2,7 +2,12 @@ import cv2 as cv
 import numpy as np
 import matplotlib.pyplot as plt
 import skimage
-from gaussian import GaussianImage
+from gaussian import GaussianImage, nms
+
+def display_image(img):
+    plt.imshow(img)  
+    plt.axis('off')      
+    plt.show() 
 
 # #Canny edge detector steps:
 # Apply Gaussian filter to smooth the image in order to remove the noise
@@ -28,5 +33,10 @@ orientation = gaussian.orientation
 
 #3) Non-maximum supression:
     #a Thin multi-pixel wide "ridges" to single pixel width
+non_max_image = nms(orientation, magnitude)
+display_image(non_max_image)
 
-# interpolated_img = skimage.transform.rescale(1, 2, order=3)
+
+
+
+
