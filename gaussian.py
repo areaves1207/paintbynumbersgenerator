@@ -100,6 +100,6 @@ def nms(orientation, magnitude):
             if(adj_pixel1 >= curr_pixel or adj_pixel2 >= curr_pixel):
                 nms[i][j] = 0 #if either adj pixel is larger, set our pixel to 0
             else:
-                nms[i][j] = magnitude[i][j]
+                nms[i][j] = 255
     
     return nms

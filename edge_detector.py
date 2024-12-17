@@ -5,7 +5,7 @@ import skimage
 from gaussian import GaussianImage, nms
 
 def display_image(img):
-    plt.imshow(img)  
+    plt.imshow(img, cmap='gray')  
     plt.axis('off')      
     plt.show() 
 
