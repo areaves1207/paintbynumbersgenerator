@@ -18,14 +18,16 @@ def display_image(img):
 
 #0) Import image and turn into greyscale:
 img = cv.imread("test_images/woman_in_hallway.png", 0) #Read in file as greyscale img
+# display_image(img)
 
 #1) Apply gaussian filters to x and y
 
-size = 5
-sigma = 3 #TODO: play around with these numbers to see what works best and not.
+size = 3 
+sigma = 2 #TODO: play around with these numbers to see what works best and not. 3,2 seem to be best
 
 gaussian = GaussianImage(size, sigma, img)
-gaussian.show_filtered_images()
+# gaussian.show_filtered_images()
+# display_image(gaussian.orientation)
 
 #2) Find the intensity gradients of the image
 magnitude = gaussian.magnitude
@@ -36,6 +38,7 @@ orientation = gaussian.orientation
 non_max_image = nms(orientation, magnitude)
 display_image(non_max_image)
 
+#4) Double thresholding
 
 
 
