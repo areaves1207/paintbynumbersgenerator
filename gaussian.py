@@ -49,7 +49,7 @@ def gaussian_kernel(size, sigma): #NOTE: size is kernel size, sigma is how inten
     square_kernel = kernel @ kernel.T #turn the 1d array into a size x size matrix
     return square_kernel
     
-def generate_img_gradients(img, size=5): #NOTE: RETURNS DY, DX
+def generate_img_gradients(img, size=3): #NOTE: RETURNS DY, DX
     dx = cv.Sobel(img, cv.CV_64F, 1, 0, ksize=size)
     dy = cv.Sobel(img, cv.CV_64F, 0, 1, ksize=size)
     return (dy, dx)
