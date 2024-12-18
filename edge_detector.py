@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import skimage
 from gaussian import GaussianImage, nms
+from threshing import thresh
 
 def display_image(img):
     plt.imshow(img, cmap='gray')  
@@ -36,10 +37,8 @@ orientation = gaussian.orientation
 #3) Non-maximum supression:
     #a Thin multi-pixel wide "ridges" to single pixel width
 non_max_image = nms(orientation, magnitude)
-display_image(non_max_image)
+# display_image(non_max_image)
 
 #4) Double thresholding
-
-
-
-
+thresh = thresh(non_max_image) #TODO: has 2 optional params, low and high. Play around with these
+display_image(thresh)
