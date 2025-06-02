@@ -3,11 +3,11 @@ import numpy as np
 
 def hysteresis(strong_edges, weak_edges):
     rows, cols = strong_edges.shape
-    result = strong_edges #must be init to strong bc we are only adding "weak" pixels to strong.
+    result = strong_edges.copy() #must be init to strong bc we are only adding "weak" pixels to strong.
     
     isStrong = False
     
-    thresh = 3
+    thresh = 1 #how large our thresh window is
     
     for i in range(thresh, rows-thresh):
         for j in range(thresh, cols-thresh):

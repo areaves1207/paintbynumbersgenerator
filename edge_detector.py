@@ -6,7 +6,8 @@ from gaussian import GaussianImage, nms
 from threshing import thresh
 from hysteresis import hysteresis
 
-def display_image(img):
+def display_image(img, title="figure"):
+    plt.title(title)
     plt.imshow(img, cmap='gray')  
     plt.axis('off')      
     plt.show() 
@@ -17,15 +18,14 @@ def display_image(img):
 # Apply gradient magnitude thresholding or lower bound cut-off suppression to get rid of spurious response to edge detection
 # Apply double threshold to determine potential edges
 # Track edge by hysteresis: Finalize the detection of edges by suppressing all the other edges that are weak and not connected to strong edges.
-
+# def detect_edges(image_name=""):
 #0) Import image and turn into greyscale:
 img = cv.imread("test_images/woman_in_hallway.png", 0) #Read in file as greyscale img
 # display_image(img)
 
 #1) Apply gaussian filters to x and y
-
-size = 3
-sigma = 1 #TODO: play around with these numbers to see what works best and not. 3,2 seem to be best
+size = 5
+sigma = 2 #TODO: play around with these numbers to see what works best and not. 5,2 seems to be best
 
 gaussian = GaussianImage(size, sigma, img)
 # gaussian.show_filtered_images()
@@ -41,12 +41,19 @@ non_max_image = nms(orientation, magnitude)
 # display_image(non_max_image)
 
 #4) Double thresholding
-thresh, strong_edges, weak_edges = thresh(non_max_image, 100, 150) #TODO: has 2 optional params, low and high. Play around with these
-
-display_image(strong_edges)
-display_image(weak_edges)
-# display_image(thresh)
+thresh, strong_edges, weak_edges = thresh(non_max_image, 50, 150) #TODO: has 2 optional params, low and high. Play around with these
 
 #Hysteresis; follow edges to connect strong to weak edges
-final = hysteresis(strong_edges, weak_edges)
-display_image(final)
+hyst = hysteresis(strong_edges, weak_edges)
+
+#Connect patches
+final = cv.morphologyEx(hyst, cv.MORPH_GRADIENT, np.ones((3, 3), np.uint8))
+
+
+#DISPLAY STEPS
+# display_image(strong_edges,  "Strong edges")
+# display_image(weak_edges, "Weak edges")
+# display_image(thresh, "Threshing")
+# display_image(hyst, "Hystersis Completed")
+display_image(final, "Connected Patches")
+
