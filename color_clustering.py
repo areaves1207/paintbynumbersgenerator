@@ -5,17 +5,25 @@ from gaussian import GaussianImage
 
 
 def k_means_clustering(k, img):
-    # flat_img = img.reshape(img_height, img_width, 3) #we only need this if the img isnt formatted right. (x,y,BGR)
-    # centers = pick_centers(k, img) #now we have k (x,y,z)
-    
-    img_copy = [subarray + [-1] for subarray in img]
-    print(img_copy[0])
-    #Assign colors to clusters
+    #initialize our clusters and centers
+    centers = pick_centers(k, img) #now we have k (x,y,z) values
+    pixels = format_image(img) #now in the format RGBC, where C is the cluster the pixel is assigned to
+    #Assign pixels to clusters
     
 
 
+def format_image(img): #adds -1 to each pixel, so it is [RGB-1] to keep track of which cluster the pixel relates to
+    formatted_img = np.array([[np.append(elem, -1) for elem in row] for row in img])
+    return formatted_img #TODO: is a tad bit slow
 
 
+def assign_clusters(pixels, centers):
+    #assign each pixel a center cluster 
+    for pixel in pixels:
+        pixel[3] = get_closest_center(pixel, centers) #rgbC, C is now assigned a cluster index
+
+
+# def update_clusters(pixels, centers):
 
 
     
@@ -36,15 +44,21 @@ def pick_centers(k, img): #generates k random center points that lie within the 
         
         
     
-#p1 and p2 are the VALUE OF THE PIXELS, not the point in space
 def distance(p1, p2): #think of p1 having xyz coords instead of rgb :)
     diff = p1 - p2 #[R1-R2, G1-G2, B1-B2]
     return np.sqrt(np.sum(diff ** 2))
-    
-def assign_clusters(img, cluster_centers):
-    for x in range(img.shape[0]):
-        for y in range(img.shape[1]):
-            pixel = img[x][y]
+
+
+def get_closest_center(pixel, centers): #returns which center's INDEX gave min distance
+    min_center_index = -1
+    min_distance = float('inf')
+    for center in centers:
+        d = distance(pixel, center)
+        if(d < min_distance):
+            min_distance = d
+            min_center_index = centers.index(center)
+
+    return min_center_index
 
 
 
@@ -56,7 +70,6 @@ sigma = 5 #TODO: play around with these numbers to see what works best and not. 
 gaussian = GaussianImage(size, sigma, img) #prob want a bi-soemthing blur too. preserves edges better
 
 num_colors = 128
-print("hi")
 k_means_clustering(100, img)
 
 
