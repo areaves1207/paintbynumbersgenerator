@@ -18,21 +18,20 @@ def assign_clusters(img, centroids, clusters):
     #assign each pixel a center cluster 
     start_time_ac = time.time()
     height, width, _ = img.shape
-    for x in range(height):
-        for y in range(width):
-            pixel = img[x][y]
+    centroids = np.array(centroids, dtype=np.float32)
 
-            #Find the closest center
-            min_center_index = -1
-            min_distance = float('inf')
-            for idx in range (len(centroids)):
-                center = centroids[idx]
-                d = distance(pixel, center) #returns distance of the cluster center
-                if(d < min_distance):
-                    min_distance = d
-                    min_center_index = idx
+    #this line converts our array from w,h,3 into w*h,3 which works with np's tools easier for faster functions
+    easy_array = np.reshape(img, (-1, 3)).astype(np.float32) #must conv to 32 or we will overflow since cv works uint8
+    distances = np.linalg.norm(easy_array[:, None, :] - centroids[None, :, :], axis=2) #calcs euclid dist fast
+    cluster_indices = np.argmin(distances, axis=1) 
 
-            clusters[min_center_index].append((x,y)) #add the location of the pixel to its respective cluster
+    #assign the closest centroid cluster for all points
+    clusters = [[] for _ in range(len(centroids))]
+    for idx, cluster_idx in enumerate(cluster_indices):
+        x = idx // width
+        y = idx % width
+        clusters[cluster_idx].append((x, y))
+
     end_time_ac = time.time()
     print(f"Execution time of ASSIGNCLUSTERS: {end_time_ac - start_time_ac:.4f} seconds")
 
