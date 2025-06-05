@@ -26,7 +26,7 @@ def k_means_clustering(k, img):
                 logging.info("Minor change detected")
                 break
         prev_centroids = centroids.copy()
-        
+    print()   
     
     clustered_img = np.empty_like(img)    
     for i in range(k):
@@ -92,23 +92,3 @@ def pick_centroids(k, img):
     centroids = np.array(centroids, dtype=np.uint8)
     return centroids, clusters #we now return k cluster centers that are spawned on random points in our RGB space
     
-img = cv.imread("test_images/vettriano.jpeg", -1) #Read in file as is
-img = cv.cvtColor(img, cv.COLOR_BGR2RGB)
-img = cv.resize(img, (1920, 1080), interpolation=cv.INTER_AREA)
-
-size = 15
-sigma = (5,5) #TODO: play around with these numbers to see what works best and not. 5,2 seems to be best
-gaussian = cv.GaussianBlur(img, sigma, size) #prob want a bi-soemthing blur too. preserves edges better
-bilateral_blurred_img = cv.bilateralFilter(gaussian, 5, 50, 50)
-
-num_colors = 128
-start_time = time.time()
-k_means_clustering(24, bilateral_blurred_img)
-
-end_time = time.time()
-logging.info(f"Execution time: {end_time - start_time:.4f} seconds")
-
-
-
-            
-            
