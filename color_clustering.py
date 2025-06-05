@@ -7,11 +7,19 @@ import time
 def k_means_clustering(k, img):
     #initialize our clusters and centers
     # np.savetxt("my_array.txt", img[0], delimiter=" ", fmt="%d") 
-
     centroids, clusters = pick_centroids(k, img) #now we have k (x,y,z) values
+    prev_centroids = None
+
     #Assign pixels to clusters
-    assign_clusters(img, centroids, clusters)
-    centroids = update_clusters(img, clusters)    
+    while(prev_centroids != centroids):
+        assign_clusters(img, centroids, clusters)
+        centroids = update_clusters(img, clusters)
+        prev_centroids = centroids
+        if(np.linalg.norm(np.array(centroids) - np.array(prev_centroids)) <  1e-2):
+            print("MINOR CHANGE DETECTED")
+            break
+
+    
 
 #Assigns all pixels to the cluster center they are closest to
 def assign_clusters(img, centroids, clusters):
