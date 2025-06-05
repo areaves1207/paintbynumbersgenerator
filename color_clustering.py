@@ -2,8 +2,9 @@ import cv2 as cv
 import numpy as np
 import matplotlib.pyplot as plt
 from edge_detector import display_image
-from gaussian import GaussianImage
 import time
+import logging
+
 
 def k_means_clustering(k, img):
     #initialize our clusters and centers
@@ -13,15 +14,16 @@ def k_means_clustering(k, img):
     prev_centroids = None
 
     #Assign pixels to clusters
-    # for _ in range (50):
+    print("Generating image", end="")
     while(True):
+        print(".", end="", flush=True)
         clusters = assign_clusters(img, centroids, clusters)
         centroids = update_centroids(img, clusters)
         
         if prev_centroids is not None:
             diff = np.linalg.norm(np.array(centroids) - np.array(prev_centroids))  # total Euclidean difference
             if diff < 1e-4:
-                print("Minor change detected")
+                logging.info("Minor change detected")
                 break
         prev_centroids = centroids.copy()
         
@@ -29,13 +31,13 @@ def k_means_clustering(k, img):
     clustered_img = np.empty_like(img)    
     for i in range(k):
         for pixel in clusters[i]:
-            # print("X,Y, VAL", pixel[0], pixel[1], centroids[i])
             clustered_img[pixel[0]][pixel[1]] = centroids[i]
         
     display_image(clustered_img, "Clustered image")
+    print("Image successfully generated")
+    return clustered_img
 
     
-
 #Assigns all pixels to the cluster center they are closest to
 def assign_clusters(img, centroids, clusters):
     #assign each pixel a center cluster 
@@ -56,7 +58,7 @@ def assign_clusters(img, centroids, clusters):
         clusters[cluster_idx].append((x, y))
 
     end_time_ac = time.time()
-    print(f"Execution time of ASSIGNCLUSTERS: {end_time_ac - start_time_ac:.4f} seconds")
+    logging.info(f"Execution time of ASSIGNCLUSTERS: {end_time_ac - start_time_ac:.4f} seconds")
     return clusters
 
 
@@ -76,9 +78,8 @@ def update_centroids(img, clusters):
     return new_centroids
 
 
-
-    
-def pick_centroids(k, img): #generates k random center points that lie within the RGB space + k empty clusters
+#generates k random center points that lie within the RGB space + k empty clusters    
+def pick_centroids(k, img): 
     height, width, _ = img.shape
     clusters = [[] for _ in range(k)]
     #pick k random centers on our image to start
@@ -91,12 +92,6 @@ def pick_centroids(k, img): #generates k random center points that lie within th
     centroids = np.array(centroids, dtype=np.uint8)
     return centroids, clusters #we now return k cluster centers that are spawned on random points in our RGB space
     
-        
-# def distance(p1, p2): #think of p having xyz coords instead of rgb :)
-#     diff = p1 - p2 #[R1-R2, G1-G2, B1-B2] (technically BGR but it doesnt matter here)
-#     return np.sqrt(np.sum(diff**2))
-
-
 img = cv.imread("test_images/vettriano.jpeg", -1) #Read in file as is
 img = cv.cvtColor(img, cv.COLOR_BGR2RGB)
 img = cv.resize(img, (1920, 1080), interpolation=cv.INTER_AREA)
@@ -108,11 +103,10 @@ bilateral_blurred_img = cv.bilateralFilter(gaussian, 5, 50, 50)
 
 num_colors = 128
 start_time = time.time()
-
 k_means_clustering(24, bilateral_blurred_img)
 
 end_time = time.time()
-print(f"Execution time: {end_time - start_time:.4f} seconds")
+logging.info(f"Execution time: {end_time - start_time:.4f} seconds")
 
 
 
