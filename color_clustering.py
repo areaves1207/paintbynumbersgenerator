@@ -1,23 +1,33 @@
 import cv2 as cv
 import numpy as np
 import matplotlib.pyplot as plt
+from edge_detector import display_image
 from gaussian import GaussianImage
 import time
 
 def k_means_clustering(k, img):
     #initialize our clusters and centers
     # np.savetxt("my_array.txt", img[0], delimiter=" ", fmt="%d") 
+    #centroids holds the center value, clusters holds all of the coords for each pixel and which cluster its assigned
     centroids, clusters = pick_centroids(k, img) #now we have k (x,y,z) values
-    prev_centroids = None
 
     #Assign pixels to clusters
-    while(prev_centroids != centroids):
-        assign_clusters(img, centroids, clusters)
-        centroids = update_clusters(img, clusters)
-        prev_centroids = centroids
-        if(np.linalg.norm(np.array(centroids) - np.array(prev_centroids)) <  1e-2):
-            print("MINOR CHANGE DETECTED")
-            break
+    for _ in range (2):
+    # while(prev_centroids != centroids):
+        clusters = assign_clusters(img, centroids, clusters)
+        centroids = update_centroids(img, clusters)
+        # prev_centroids = centroids
+        # if(np.linalg.norm(np.array(centroids) - np.array(prev_centroids)) <  1e-3):
+        #     print("MINOR CHANGE DETECTED")
+        #     break
+    
+    clustered_img = np.empty_like(img)    
+    for i in range(k):
+        for pixel in clusters[i]:
+            # print("X,Y, VAL", pixel[0], pixel[1], centroids[i])
+            clustered_img[pixel[0]][pixel[1]] = centroids[i]
+        
+    display_image(clustered_img, "Clustered image")
 
     
 
@@ -42,9 +52,11 @@ def assign_clusters(img, centroids, clusters):
 
     end_time_ac = time.time()
     print(f"Execution time of ASSIGNCLUSTERS: {end_time_ac - start_time_ac:.4f} seconds")
+    return clusters
 
 
-def update_clusters(img, clusters):
+#For each cluster, find avg and return new center
+def update_centroids(img, clusters):
     new_centroids = []
     for cluster in clusters:
         sum_vector = np.zeros(3, dtype=np.float32)
@@ -59,7 +71,7 @@ def update_clusters(img, clusters):
 
 
     
-def pick_centroids(k, img): #generates k random center points that lie within the RGB space
+def pick_centroids(k, img): #generates k random center points that lie within the RGB space + k empty clusters
     height, width, _ = img.shape
     clusters = [[] for _ in range(k)]
     #pick k random centers on our image to start
@@ -71,8 +83,9 @@ def pick_centroids(k, img): #generates k random center points that lie within th
         # print(pixels)
         centroids.append(img[x][y]) #get the RGB/xyz values at that random point in the image
 
-    for i in range(k):
-        clusters[i].append(centroids[i])
+    # for i in range(k):
+    #     print(centroids[i])
+    #     clusters[i].append(centroids[i])
 
     return centroids, clusters #we now return k cluster centers that are spawned on random points in our RGB space
     
@@ -90,7 +103,7 @@ gaussian = GaussianImage(size, sigma, img) #prob want a bi-soemthing blur too. p
 num_colors = 128
 start_time = time.time()
 
-k_means_clustering(24, img)
+k_means_clustering(12, img)
 
 end_time = time.time()
 print(f"Execution time: {end_time - start_time:.4f} seconds")
