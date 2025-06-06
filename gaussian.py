@@ -70,12 +70,14 @@ def bound_orientation(orientation): #orientation given in radians
     return bounded_orientations
 
 def nms(orientation, magnitude):
-    cols, rows = magnitude.shape
+    cols, rows, _ = magnitude.shape
     nms = np.zeros_like(magnitude)
 
     for i in range(1, cols - 1):
         for j in range(1, rows - 1):
             angle = orientation[i][j]
+            print(orientation)
+            print("ANGLE:", angle)
             curr_pixel = magnitude[i][j]
 
             adj_pixel1 = None
