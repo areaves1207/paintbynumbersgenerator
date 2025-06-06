@@ -2,7 +2,7 @@
 import numpy as np
 
 def hysteresis(strong_edges, weak_edges):
-    rows, cols = strong_edges.shape
+    rows, cols, _ = strong_edges.shape
     result = strong_edges.copy() #must be init to strong bc we are only adding "weak" pixels to strong.
     
     isStrong = False

@@ -33,7 +33,7 @@ def k_means_clustering(k, img):
         for pixel in clusters[i]:
             clustered_img[pixel[0]][pixel[1]] = centroids[i]
         
-    display_image(clustered_img, "Clustered image")
+    # display_image(clustered_img, "Clustered image")
     print("Image successfully generated")
     return clustered_img
 

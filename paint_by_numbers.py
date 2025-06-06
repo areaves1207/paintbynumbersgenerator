@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from color_clustering import k_means_clustering
 import time
 from image_setup import setup_image
+import edge_detector
 
 
 images = ["test_images/lemons.jpg", "test_images/1920x1080.jpg", "test_images/dali.jpeg", "test_images/dog.jpeg", "test_images/reef.jpeg", "test_images/vettriano.jpeg", "test_images/woman_in_hallway.png"]
@@ -11,5 +12,7 @@ images = ["test_images/lemons.jpg", "test_images/1920x1080.jpg", "test_images/da
 img = setup_image(img_file_location = images[0])
 
 num_colors = 16
-k_means_clustering(num_colors, img)
+clustered_img = k_means_clustering(num_colors, img)
 
+edges = edge_detector.detect_edges(clustered_img)
+edge_detector.display_image(edges)
