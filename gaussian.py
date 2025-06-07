@@ -63,7 +63,7 @@ def generate_img_gradients(img, size=3): #NOTE: RETURNS DY, DX
     
 def get_magnitude_and_orientation(img_dy, img_dx, mag_threshold = 50):
     magnitude = np.sqrt(img_dx**2 + img_dy**2)
-    magnitude[magnitude < mag_threshold] = 0 #threshold to reduce noise
+    # magnitude[magnitude < mag_threshold] = 0 #threshold to reduce noise
 
     orientation_rad = np.atan2(img_dy, img_dx) #order is dy, dx
     orientation = bound_orientation(orientation_rad)
@@ -117,3 +117,30 @@ def nms(orientation, magnitude):
                 nms[i][j] = magnitude[i][j] 
     
     return nms
+
+
+def hysteresis(strong_edges, weak_edges):
+    rows, cols = strong_edges.shape
+    result = strong_edges.copy() #must be init to strong bc we are only adding "weak" pixels to strong.
+    
+    isStrong = False
+    
+    thresh = 1 #how large our thresh window is
+    
+    for i in range(thresh, rows-thresh):
+        for j in range(thresh, cols-thresh):
+            
+            if(weak_edges[i][j] != 0):
+                #check if any of the surrounding 8 pixels are strong
+                for x in range(-thresh, thresh+1):
+                    for y in range(-thresh, thresh+1):
+                        if(strong_edges[i+x][j+y] != 0):
+                            result[i][j] = 255
+                            isStrong = True
+                            
+                if(not isStrong):
+                    result[i][j] = 0
+                isStrong = False
+                
+
+    return result

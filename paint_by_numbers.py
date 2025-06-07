@@ -17,8 +17,21 @@ images = ["test_images/lemons.jpg", "test_images/1920x1080.jpg", "test_images/da
 
 # np.save('my_array.npy', clustered_img)
 clustered_img = np.load('my_array.npy')
-# print("SHAPE", clustered_img.shape)
+
+gray = cv.cvtColor(np.array(clustered_img), cv.COLOR_RGB2GRAY)
+edgesx = cv.Canny(gray, threshold1=30, threshold2=100)
 
 
 edges = edge_detector.detect_edges(clustered_img)
-edge_detector.display_image(edges)
+
+plt.subplot(1, 2, 1)
+plt.imshow(edges)
+plt.axis('off')  # Hide axis
+
+# Second image
+plt.subplot(1, 2, 2)
+plt.imshow(edgesx)
+plt.axis('off')  # Hide axis
+
+plt.tight_layout()
+plt.show()

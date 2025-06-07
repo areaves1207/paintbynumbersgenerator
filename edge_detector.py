@@ -2,9 +2,8 @@ import cv2 as cv
 import numpy as np
 import matplotlib.pyplot as plt
 import skimage
-from gaussian import GaussianImage, nms
+from gaussian import GaussianImage, nms, hysteresis
 from threshing import thresh
-from hysteresis import hysteresis
 
 def display_image(img, title="figure"):
     plt.title(title)
@@ -21,7 +20,7 @@ def display_image(img, title="figure"):
 def detect_edges(img):
     #1) Apply gaussian filters to x and y
     size = 25
-    sigma = 5 #TODO: play around with these numbers to see what works best and not. 5,2 seems to be best
+    sigma = 1.4 #TODO: play around with these numbers to see what works best and not. 5,2 seems to be best
 
     gaussian = GaussianImage(size, sigma, img)
     # gaussian.show_filtered_images()
