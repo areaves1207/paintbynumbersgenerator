@@ -8,9 +8,13 @@ class GaussianImage:
         self.sigma = sigma
         
         self.kernel = gaussian_kernel(size, sigma)
-        smoothed_img = cv.filter2D(img, -1, self.kernel) #maybe we dont need this. Will smooth the img w/ gaussian b4 using dy dx
+        img = cv.cvtColor(img, cv.COLOR_RGB2GRAY)
+        # smoothed_img = cv.filter2D(img, -1, self.kernel) #maybe we dont need this. Will smooth the img w/ gaussian b4 using dy dx
+        
+        # plt.imshow(img, cmap='gray')  
+        # plt.show() 
 
-        self.img_dy, self.img_dx = generate_img_gradients(smoothed_img, size)
+        self.img_dy, self.img_dx = generate_img_gradients(img, size)
         self.magnitude, self.orientation = get_magnitude_and_orientation(self.img_dx, self.img_dy)
         
     def show_filtered_images(self): #chatgpt generated to display the imgs to test
@@ -38,7 +42,7 @@ class GaussianImage:
         
         plt.show()
 
-        print(self.orientation)
+        # print(self.orientation)
             
         
     
@@ -51,8 +55,11 @@ def gaussian_kernel(size, sigma): #NOTE: size is kernel size, sigma is how inten
     
 def generate_img_gradients(img, size=3): #NOTE: RETURNS DY, DX
     dx = cv.Sobel(img, cv.CV_64F, 1, 0, ksize=size)
+    # dx_abs = cv.convertScaleAbs(dx)
     dy = cv.Sobel(img, cv.CV_64F, 0, 1, ksize=size)
-    return (dy, dx)
+    # dy_abs = cv.convertScaleAbs(dy)
+    # return (dy_abs, dx_abs)
+    return(dy, dx)
     
 def get_magnitude_and_orientation(img_dy, img_dx, mag_threshold = 50):
     magnitude = np.sqrt(img_dx**2 + img_dy**2)
@@ -60,6 +67,9 @@ def get_magnitude_and_orientation(img_dy, img_dx, mag_threshold = 50):
 
     orientation_rad = np.atan2(img_dy, img_dx) #order is dy, dx
     orientation = bound_orientation(orientation_rad)
+
+    # print("MAGNITUDE:", magnitude)
+    # print("ORIENTATION", orientation)
     return (magnitude, orientation)
 
 def bound_orientation(orientation): #orientation given in radians
@@ -70,14 +80,16 @@ def bound_orientation(orientation): #orientation given in radians
     return bounded_orientations
 
 def nms(orientation, magnitude):
-    cols, rows, _ = magnitude.shape
+    cols, rows = magnitude.shape
     nms = np.zeros_like(magnitude)
+    # print("ORIENTATION:", orientation)
+    # print("MAGNITUDE", magnitude)
 
     for i in range(1, cols - 1):
         for j in range(1, rows - 1):
             angle = orientation[i][j]
-            print(orientation)
-            print("ANGLE:", angle)
+            # print("ANGLE:", angle)
+            # print(orientation)
             curr_pixel = magnitude[i][j]
 
             adj_pixel1 = None

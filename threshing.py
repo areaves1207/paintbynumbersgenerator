@@ -3,7 +3,7 @@ import numpy as np
 
 
 def thresh(gradient_magnitude_img, low_thresh=75, high_thresh=150): #typ 50-100, 100-200
-    cols, rows, _ = gradient_magnitude_img.shape
+    cols, rows = gradient_magnitude_img.shape
     
     strong_edges = np.zeros_like(gradient_magnitude_img)
     weak_edges = np.zeros_like(gradient_magnitude_img)

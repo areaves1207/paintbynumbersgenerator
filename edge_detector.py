@@ -37,7 +37,7 @@ def detect_edges(img):
     # display_image(non_max_image)
 
     #4) Double thresholding
-    thresh, strong_edges, weak_edges = thresh(non_max_image, 50, 150) #TODO: has 2 optional params, low and high. Play around with these
+    _, strong_edges, weak_edges = thresh(non_max_image, 50, 150) #TODO: has 2 optional params, low and high. Play around with these
 
     #Hysteresis; follow edges to connect strong to weak edges
     hyst = hysteresis(strong_edges, weak_edges)
