@@ -1,9 +1,5 @@
-import cv2 as cv
-import numpy as np
 import matplotlib.pyplot as plt
-import skimage
-from gaussian import GaussianImage, nms, hysteresis
-from threshing import thresh
+from gaussian import GaussianImage, nms, hysteresis, thresh
 
 def display_image(img, title="figure"):
     plt.title(title)
@@ -20,7 +16,7 @@ def display_image(img, title="figure"):
 def detect_edges(img):
     #1) Apply gaussian filters to x and y
     size = 25
-    sigma = 1.4 #TODO: play around with these numbers to see what works best and not. 5,2 seems to be best
+    sigma = 1.4
 
     gaussian = GaussianImage(size, sigma, img)
     # gaussian.show_filtered_images()
@@ -36,20 +32,10 @@ def detect_edges(img):
     # display_image(non_max_image)
 
     #4) Double thresholding
-    _, strong_edges, weak_edges = thresh(non_max_image, 50, 150) #TODO: has 2 optional params, low and high. Play around with these
+    _, strong_edges, weak_edges = thresh(non_max_image) #TODO: has 2 optional params, low and high. Play around with these
 
     #Hysteresis; follow edges to connect strong to weak edges
     hyst = hysteresis(strong_edges, weak_edges)
     return hyst
 
-#Connect patches
-# final = cv.morphologyEx(hyst, cv.MORPH_GRADIENT, np.ones((3, 3), np.uint8))
-
-
-# #DISPLAY STEPS
-# # display_image(strong_edges,  "Strong edges")
-# # display_image(weak_edges, "Weak edges")
-# # display_image(thresh, "Threshing")
-# display_image(hyst, "Hystersis Completed")
-# # xdisplay_image(final, "Connected Patches")
 
