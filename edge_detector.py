@@ -1,9 +1,10 @@
 import matplotlib.pyplot as plt
+import numpy as np
 from gaussian import GaussianImage, nms, hysteresis, thresh
 
 def display_image(img, title="figure"):
     plt.title(title)
-    plt.imshow(img, cmap='gray')  
+    plt.imshow(img)  
     plt.axis('off')      
     plt.show() 
 
@@ -36,6 +37,7 @@ def detect_edges(img):
 
     #Hysteresis; follow edges to connect strong to weak edges
     hyst = hysteresis(strong_edges, weak_edges)
-    return hyst
+    final = np.dstack([hyst,hyst,hyst]).astype(np.uint8) #turn it into a 3d img of all black for easy combination with other imgs
+    return final
 
 
