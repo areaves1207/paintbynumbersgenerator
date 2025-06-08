@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from color_clustering import k_means_clustering
 
-def setup_image(img_file_location, size=15, sigma=(5,5), reduce=True):
+def setup_image(img_file_location, size=15, sigma=(5,5), reduce=False):
     img = cv.imread(img_file_location, -1) #Read in file as is
     img = cv.cvtColor(img, cv.COLOR_BGR2RGB) #swap from BGR to RGB 
     if(reduce):

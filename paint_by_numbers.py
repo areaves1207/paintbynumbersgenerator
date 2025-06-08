@@ -22,18 +22,19 @@ def display_dual_imgs(img1, img2):
 def combine_images(img, edges):
     img[edges == 255] = 0
     return img
+
+def quick_testing(clustered_img = None):
+    if(clustered_img is not None):
+        np.save('my_array.npy', clustered_img)
+    return np.load('my_array.npy')
     
     
-images = ["test_images/lemons.jpg", "test_images/1920x1080.jpg", "test_images/dali.jpeg", "test_images/dog.jpeg", "test_images/reef.jpeg", "test_images/vettriano.jpeg", "test_images/woman_in_hallway.png"]
+images = ["test_images/lemons.jpg", "test_images/1920x1080.jpg", "test_images/dali.jpeg", "test_images/dog.jpeg", "test_images/reef.jpeg", "test_images/vettriano.jpeg", "test_images/woman_in_hallway.png", "test_images/churro.jpg", "test_images/sexy_churro.jpg"]
 
-# img = setup_image(img_file_location = images[0])
+img = setup_image(img_file_location = images[8])
 
-# num_colors = 16
-# clustered_img = k_means_clustering(num_colors, img)
-# print("TYPE:", type(clustered_img))
-
-# np.save('my_array.npy', clustered_img)
-clustered_img = np.load('my_array.npy')
+num_colors = 16
+clustered_img = k_means_clustering(num_colors, img)
 
 gray = cv.cvtColor(np.array(clustered_img), cv.COLOR_RGB2GRAY)
 # edgesx = cv.Canny(gray, threshold1=30, threshold2=100)
