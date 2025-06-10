@@ -64,7 +64,7 @@ def generate_batches(img, clusters, color_pallete):
                             batch.append((nx, ny))
                             x_center += nx
                             y_center += ny
-            if(num_pixels > 20): #remove tiny little bits from having numbers
+            if(num_pixels > 100): #remove tiny little bits from having numbers
                 x_center_final = x_center // num_pixels
                 y_center_final = y_center // num_pixels
                 center_of_mass[cluster_index].append((int(x_center_final), int(y_center_final)))

@@ -34,7 +34,7 @@ images = ["test_images/sorrento.jpg", "test_images/lemons.jpg", "test_images/192
 
 img = setup_image(img_file_location = images[6], reduce=True)
 
-num_colors = 4
+num_colors = 16
 clustered_img, labels, color_pallete = k_means_clustering(num_colors, img)
 
 batches, center_of_masses = generate_batches(clustered_img, labels, color_pallete)
