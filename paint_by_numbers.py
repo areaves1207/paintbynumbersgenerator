@@ -1,34 +1,11 @@
-import cv2 as cv
 import numpy as np
 import matplotlib.pyplot as plt
 from color_clustering import k_means_clustering
 import time
-from image_setup import setup_image
+from image_utils import setup_image, display_dual_imgs, combine_images
 import edge_detector
-from number_drawing import draw_numbers, draw_numbers_pil
-
-def display_dual_imgs(img1, img2):
-    plt.subplot(1, 2, 1)
-    plt.imshow(img1, cmap='gray')
-    plt.axis('off')
-
-    # Second image
-    plt.subplot(1, 2, 2)
-    plt.imshow(img2, cmap='gray')
-    plt.axis('off')
-
-    plt.tight_layout()
-    plt.show()
-    
-def combine_images(img, edges):
-    img[edges == 255] = 0
-    return img
-
-def quick_testing(clustered_img = None):
-    if(clustered_img is not None):
-        np.save('my_array.npy', clustered_img)
-    return np.load('my_array.npy')
-    
+from number_drawing import draw_numbers_cv, draw_numbers_pil
+   
     
 images = ["test_images/sorrento.jpg", "test_images/lemons.jpg", "test_images/1920x1080.jpg", "test_images/dali.jpeg", "test_images/dog.jpeg", "test_images/reef.jpeg", "test_images/vettriano.jpeg", "test_images/woman_in_hallway.png", "test_images/churro.jpg", "test_images/sexy_churro.jpg"]
 
@@ -37,10 +14,7 @@ img = setup_image(img_file_location = images[6], reduce=True)
 num_colors = 16
 clustered_img, labels, color_pallete, batches, center_of_masses = k_means_clustering(num_colors, img)
 
-# gray = cv.cvtColor(np.array(clustered_img), cv.COLOR_RGB2GRAY)
-# edgesx = cv.Canny(gray, threshold1=30, threshold2=100)
-
-edges = edge_detector.detect_edges(clustered_img)
+edges = edge_detector.detect_edges_canny(clustered_img)
 
 combined = combine_images(clustered_img.copy(), edges)
 
