@@ -5,7 +5,7 @@ from color_clustering import k_means_clustering
 import time
 from image_setup import setup_image
 import edge_detector
-from number_mapping import generate_batches
+from number_mapping import draw_numbers, generate_batches
 
 def display_dual_imgs(img1, img2):
     plt.subplot(1, 2, 1)
@@ -49,8 +49,9 @@ for batch in center_of_masses:
     for x, y in batch:
         combined[x][y] = [255, 255, 0]
 
-edge_detector.display_image(combined)
 # display_dual_imgs(clustered_img, combined)
+draw_numbers(combined, center_of_masses)
+edge_detector.display_image(combined)
 
 
 

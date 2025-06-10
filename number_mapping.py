@@ -1,5 +1,6 @@
 from collections import deque
 import numpy as np
+import cv2 as cv
 
 
 #TERMINOLOGY. This has been lowkey very confusing to think about so I need to write this down for my sake
@@ -9,8 +10,13 @@ import numpy as np
 # BATCH - holds the n connected components of colors within each cluster. For example, when 
     # we have [A, A, B, A, A] as our image, our batches would be [A,A],[A,A] since they are separated
     # by the B.
-def draw_numbers(img, clusters):
-    print("HI")
+def draw_numbers(img, coords): #coords is where the text will be drawn
+    for batch in enumerate(coords):
+        for x, y in batch:
+            for i, (x, y) in enumerate(coords, 1):
+                cv.putText(img, str(batch+1), (x, y), cv.FONT_HERSHEY_SIMPLEX,
+                            0.5, (255, 255, 255), 1, cv.LINE_AA)
+                            
 
 
 
@@ -59,3 +65,5 @@ def generate_batches(img, clusters, color_pallete):
                     print(x_center, y_center, num_pixels)
             batches_within_cluster[cluster_index].append(batch) #for cluster idx append all batches found within
     return batches_within_cluster, center_of_mass
+
+
