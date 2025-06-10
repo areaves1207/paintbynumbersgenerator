@@ -5,6 +5,7 @@ from color_clustering import k_means_clustering
 import time
 from image_setup import setup_image
 import edge_detector
+from number_mapping import center_of_mass, generate_batches
 
 def display_dual_imgs(img1, img2):
     plt.subplot(1, 2, 1)
@@ -29,23 +30,26 @@ def quick_testing(clustered_img = None):
     return np.load('my_array.npy')
     
     
-images = ["test_images/lemons.jpg", "test_images/1920x1080.jpg", "test_images/dali.jpeg", "test_images/dog.jpeg", "test_images/reef.jpeg", "test_images/vettriano.jpeg", "test_images/woman_in_hallway.png", "test_images/churro.jpg", "test_images/sexy_churro.jpg"]
+images = ["test_images/sorrento.jpg", "test_images/lemons.jpg", "test_images/1920x1080.jpg", "test_images/dali.jpeg", "test_images/dog.jpeg", "test_images/reef.jpeg", "test_images/vettriano.jpeg", "test_images/woman_in_hallway.png", "test_images/churro.jpg", "test_images/sexy_churro.jpg"]
 
-img = setup_image(img_file_location = images[8])
+img = setup_image(img_file_location = images[0], reduce=True)
 
-num_colors = 16
-clustered_img = k_means_clustering(num_colors, img)
+num_colors = 4
+clustered_img, labels, color_pallete = k_means_clustering(num_colors, img)
 
-gray = cv.cvtColor(np.array(clustered_img), cv.COLOR_RGB2GRAY)
+x = generate_batches(clustered_img, labels, color_pallete)
+center_of_mass(x)
+
+# gray = cv.cvtColor(np.array(clustered_img), cv.COLOR_RGB2GRAY)
 # edgesx = cv.Canny(gray, threshold1=30, threshold2=100)
 
-edges = edge_detector.detect_edges(clustered_img)
+# edges = edge_detector.detect_edges(clustered_img)
 
-combined = combine_images(clustered_img.copy(), edges)
+# combined = combine_images(clustered_img.copy(), edges)
 
 
 # edge_detector.display_image(combined)
-display_dual_imgs(clustered_img, combined)
+# display_dual_imgs(clustered_img, combined)
 
 
 

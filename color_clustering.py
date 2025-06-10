@@ -29,16 +29,18 @@ def k_means_clustering(k, img):
     print()   
     
     clustered_img = np.empty_like(img)    
+    color_pallete = []
     for i in range(k):
         for pixel in clusters[i]:
             clustered_img[pixel[0]][pixel[1]] = centroids[i]
-        
+        color_pallete.append(centroids[i])
     # display_image(clustered_img, "Clustered image")
     print("Image successfully generated")
-    return clustered_img
+    return clustered_img, clusters, color_pallete
 
     
 #Assigns all pixels to the cluster center they are closest to
+#clusters is 2d array, 1st idx is which color its associated with, 2nd idx is the pixel that belongs in that cluster
 def assign_clusters(img, centroids, clusters):
     #assign each pixel a center cluster 
     start_time_ac = time.time()
