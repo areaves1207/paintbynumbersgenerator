@@ -18,6 +18,7 @@ def generate_batches(img, clusters, color_pallete):
     visited = np.zeros((img.shape[0], img.shape[1], 1), dtype=bool)
     directions = [(-1, 0), (1, 0), (0, -1), (0, 1)] #used to check up down left right easier
     batches_within_cluster = [[] for _ in range(len(clusters))]
+    center_of_mass = [[] for _ in range(len(clusters))]
     h_bound, w_bound, _ = img.shape
     
     for cluster_index, cluster in enumerate(clusters):
@@ -33,26 +34,28 @@ def generate_batches(img, clusters, color_pallete):
             #checks each cluster within the cluster
             batch = [] #holds the coords for all pixels within the specific batch in the cluster
             batch.append((x, y))
+            x_center = y_center = 0
+            num_pixels = 0
             while queue:
                 x,y = queue.pop()
                 visited[x][y] = True
                 for dx, dy in directions:
-                    x, y = x + dx, y + dy
-                    if 0 <= h_bound and 0 <= y < w_bound: #bounds checking
+                    nx, ny = x + dx, y + dy
+                    if 0 <= nx < h_bound and 0 <= ny < w_bound: #bounds checking
                         #if the adj pixel we are looking at is the same value as current & havent visted
                         # print("IMG",img[x][y])
                         # print("CLUSTER COLOR", cluster_color)
-                        if((img[x][y] == cluster_color).all() and visited[x][y] == False):
-                            queue.append((x, y))
-                            batch.append((x, y))
-                            
+                        if((img[nx][ny] == cluster_color).all() and visited[nx][ny] == False):
+                            num_pixels += 1
+                            queue.append((nx, ny))
+                            batch.append((nx, ny))
+                            x_center += nx
+                            y_center += ny
+            if(num_pixels > 10): #remove tiny little bits from having numbers
+                x_center_final = x_center // num_pixels
+                y_center_final = y_center // num_pixels
+                center_of_mass[cluster_index].append((int(x_center_final), int(y_center_final)))
+                if(x_center_final < 0):
+                    print(x_center, y_center, num_pixels)
             batches_within_cluster[cluster_index].append(batch) #for cluster idx append all batches found within
-    return batches_within_cluster
-
-def center_of_mass(batches):
-    for batch in batches:
-        print("BATCH", batch)
-        # for x in batch:
-        #     print("x", x)
-        #     for y in x:
-        #         print("y", y)
+    return batches_within_cluster, center_of_mass
