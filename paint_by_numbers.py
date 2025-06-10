@@ -5,7 +5,7 @@ from color_clustering import k_means_clustering
 import time
 from image_setup import setup_image
 import edge_detector
-from number_mapping import draw_numbers, generate_batches
+from number_drawing import draw_numbers, draw_numbers_pil
 
 def display_dual_imgs(img1, img2):
     plt.subplot(1, 2, 1)
@@ -35,9 +35,7 @@ images = ["test_images/sorrento.jpg", "test_images/lemons.jpg", "test_images/192
 img = setup_image(img_file_location = images[6], reduce=True)
 
 num_colors = 16
-clustered_img, labels, color_pallete = k_means_clustering(num_colors, img)
-
-batches, center_of_masses = generate_batches(clustered_img, labels, color_pallete)
+clustered_img, labels, color_pallete, batches, center_of_masses = k_means_clustering(num_colors, img)
 
 # gray = cv.cvtColor(np.array(clustered_img), cv.COLOR_RGB2GRAY)
 # edgesx = cv.Canny(gray, threshold1=30, threshold2=100)
@@ -46,9 +44,5 @@ edges = edge_detector.detect_edges(clustered_img)
 
 combined = combine_images(clustered_img.copy(), edges)
 
-# display_dual_imgs(clustered_img, combined)
-draw_numbers(combined, center_of_masses)
-edge_detector.display_image(combined)
-
-
-
+final_image = draw_numbers_pil(combined, center_of_masses)
+edge_detector.display_image(final_image)
