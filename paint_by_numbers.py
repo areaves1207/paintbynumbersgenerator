@@ -45,9 +45,6 @@ batches, center_of_masses = generate_batches(clustered_img, labels, color_pallet
 edges = edge_detector.detect_edges(clustered_img)
 
 combined = combine_images(clustered_img.copy(), edges)
-for batch in center_of_masses:
-    for x, y in batch:
-        combined[x][y] = [255, 255, 0]
 
 # display_dual_imgs(clustered_img, combined)
 draw_numbers(combined, center_of_masses)

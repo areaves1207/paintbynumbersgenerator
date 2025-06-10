@@ -11,11 +11,18 @@ import cv2 as cv
     # we have [A, A, B, A, A] as our image, our batches would be [A,A],[A,A] since they are separated
     # by the B.
 def draw_numbers(img, coords): #coords is where the text will be drawn
-    for batch in enumerate(coords):
+    for i, batch in enumerate(coords):
         for x, y in batch:
-            for i, (x, y) in enumerate(coords, 1):
-                cv.putText(img, str(batch+1), (x, y), cv.FONT_HERSHEY_SIMPLEX,
-                            0.5, (255, 255, 255), 1, cv.LINE_AA)
+            cv.putText(
+                    img,
+                    str(i+1),
+                    (y, x),
+                    cv.FONT_HERSHEY_SIMPLEX,
+                    fontScale=0.25,
+                    color=(255, 255, 255),
+                    thickness=0,
+                    lineType=cv.LINE_AA
+                )
                             
 
 
@@ -57,7 +64,7 @@ def generate_batches(img, clusters, color_pallete):
                             batch.append((nx, ny))
                             x_center += nx
                             y_center += ny
-            if(num_pixels > 10): #remove tiny little bits from having numbers
+            if(num_pixels > 20): #remove tiny little bits from having numbers
                 x_center_final = x_center // num_pixels
                 y_center_final = y_center // num_pixels
                 center_of_mass[cluster_index].append((int(x_center_final), int(y_center_final)))
