@@ -2,7 +2,6 @@ from collections import deque
 import cv2 as cv
 import numpy as np
 import matplotlib.pyplot as plt
-from edge_detector import display_image
 import time
 import logging
 

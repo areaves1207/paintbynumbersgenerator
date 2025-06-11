@@ -31,3 +31,9 @@ def display_dual_imgs(img1, img2):
 def combine_images(img, edges):
     img[edges == 255] = 0
     return img
+
+def display_image(img, title="figure"):
+    plt.title(title)
+    plt.imshow(img)  
+    plt.axis('off')      
+    plt.show() 

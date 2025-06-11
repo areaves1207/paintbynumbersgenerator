@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from color_clustering import k_means_clustering
 import time
-from image_utils import setup_image, display_dual_imgs, combine_images
+from image_utils import display_image, setup_image, display_dual_imgs, combine_images
 import edge_detector
 from number_drawing import draw_numbers_cv, draw_numbers_pil
    
@@ -19,4 +19,4 @@ edges = edge_detector.detect_edges_canny(clustered_img)
 combined = combine_images(clustered_img.copy(), edges)
 
 final_image = draw_numbers_pil(combined, center_of_masses)
-edge_detector.display_image(final_image)
+display_image(final_image)
