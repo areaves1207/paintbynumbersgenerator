@@ -9,9 +9,12 @@ from number_drawing import draw_numbers_cv, draw_numbers_pil
     
 images = ["test_images/sorrento.jpg", "test_images/lemons.jpg", "test_images/1920x1080.jpg", "test_images/dali.jpeg", "test_images/dog.jpeg", "test_images/reef.jpeg", "test_images/vettriano.jpeg", "test_images/woman_in_hallway.png", "test_images/churro.jpg", "test_images/sexy_churro.jpg"]
 
-img = setup_image(img_file_location = "backend/" + images[0], reduce=True)
+img = setup_image(img_file_location = "backend/" + images[6], reduce=True)
 
 num_colors = 16
+#TODO: potential issue i thought of it its possible when we add edges, those pixels are still
+# stored under their specific batches, so if we update with a fill in color option it
+# may color the edges too
 clustered_img, labels, color_pallete, batches, center_of_masses = k_means_clustering(num_colors, img)
 
 edges = edge_detector.detect_edges_canny(clustered_img.copy())

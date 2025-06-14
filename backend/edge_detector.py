@@ -40,18 +40,18 @@ def detect_edges_tight(img):
     for x in range(rows - 1):
         for y in range(cols - 1):
             center = img[x, y]
-            if not np.all(center == [0, 0, 0]):  # skip black pixels
+            if not np.all(center == [255, 255, 255]):  # skip black pixels
                 right = img[x, y + 1]
                 bottom = img[x + 1, y]
                 if not np.all(center == right) and not np.all(center == bottom):
-                    img[x, y] = [0, 0, 0]
-                    img[x, y + 1] = [0, 0, 0]
-                    img[x + 1, y] = [0, 0, 0]
+                    img[x, y] = [255, 255, 255]
+                    img[x, y + 1] = [255, 255, 255]
+                    img[x + 1, y] = [255, 255, 255]
                 elif not np.all(center == right):
-                    img[x, y] = [0, 0, 0]
-                    img[x, y + 1] = [0, 0, 0]
+                    img[x, y] = [255, 255, 255]
+                    img[x, y + 1] = [255, 255, 255]
                 elif not np.all(center == bottom):
-                    img[x, y] = [0, 0, 0]
-                    img[x + 1, y] = [0, 0, 0]
+                    img[x, y] = [255, 255, 255]
+                    img[x + 1, y] = [255, 255, 255]
                     
     return img
