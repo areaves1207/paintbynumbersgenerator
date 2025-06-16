@@ -1,3 +1,4 @@
+import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 from palette import add_padding, draw_palette_onto_img, generate_palette
@@ -20,17 +21,20 @@ num_colors = 16
 clustered_img, labels, color_pallete, batches, center_of_masses = k_means_clustering(num_colors, img)
 
 edges = edge_detector.detect_edges_canny(clustered_img.copy())
-# edges_tight = edge_detector.detect_edges_tight(clustered_img.copy())
+edges_tight = edge_detector.detect_edges_tight(clustered_img.copy())
 
 combined = combine_images(clustered_img.copy(), edges.copy())
-# combined_tight = combine_images(clustered_img.copy(), edges_tight.copy())
+combined_tight = combine_images(clustered_img.copy(), edges_tight.copy())
 
 numbered_image = draw_numbers_pil(combined, center_of_masses)
-# final_image_tight = draw_numbers_pil(combined_tight, center_of_masses)
-# display_dual_imgs(final_image, final_image_tight)
+numbered_image_tight = draw_numbers_pil(combined_tight, center_of_masses)
 
 padded_img = add_padding(numbered_image, width // 12)
 palette = generate_palette(height, color_pallete)
-final_image = draw_palette_onto_img(padded_img, palette)
 
-display_image(final_image)
+padded_img_t = add_padding(numbered_image_tight, width // 12)
+final_image = draw_palette_onto_img(padded_img, palette)
+final_image_t = draw_palette_onto_img(padded_img_t, palette)
+
+# display_image(final_image)
+display_dual_imgs(final_image_t, final_image)
