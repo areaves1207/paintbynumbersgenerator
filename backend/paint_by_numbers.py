@@ -19,17 +19,17 @@ num_colors = 16
 # may color the edges too
 clustered_img, labels, color_pallete, batches, center_of_masses = k_means_clustering(num_colors, img)
 
-# edges = edge_detector.detect_edges_canny(clustered_img.copy())
+edges = edge_detector.detect_edges_canny(clustered_img.copy())
 # edges_tight = edge_detector.detect_edges_tight(clustered_img.copy())
 
-# combined = combine_images(clustered_img.copy(), edges.copy())
+combined = combine_images(clustered_img.copy(), edges.copy())
 # combined_tight = combine_images(clustered_img.copy(), edges_tight.copy())
 
-# final_image = draw_numbers_pil(combined, center_of_masses)
+numbered_image = draw_numbers_pil(combined, center_of_masses)
 # final_image_tight = draw_numbers_pil(combined_tight, center_of_masses)
 # display_dual_imgs(final_image, final_image_tight)
 
-padded_img = add_padding(clustered_img, width // 12)
+padded_img = add_padding(numbered_image, width // 12)
 palette = generate_palette(height, color_pallete)
 final_image = draw_palette_onto_img(padded_img, palette)
 
