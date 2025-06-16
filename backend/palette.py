@@ -9,7 +9,7 @@ def generate_palette(img_height, color_palette):
     palette = np.full(shape=(img_height, box_size * 3, 3), fill_value=[255,255,255], dtype=np.uint8)
 
     for c, color_idx in enumerate(range(0, num_colors), start=1): #loop through each color
-        #the position of the top left of each square for each; color:
+        #y is the position of the TOP LEFT of each square
         y = c*box_size*2
         top_left_point = (0, y)
         bottom_right_point = (box_size, y + box_size)
