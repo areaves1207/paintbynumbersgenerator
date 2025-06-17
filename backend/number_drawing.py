@@ -29,8 +29,9 @@ def draw_numbers_cv(img, coords): #coords is where the text will be drawn
 def draw_numbers_pil(img, coords):
     image_pil = Image.fromarray(img)
     draw = ImageDraw.Draw(image_pil)
-    font = ImageFont.truetype("DejaVuSans.ttf", 8)
+    font = ImageFont.truetype("backend/DejaVuSans.ttf", 8)
     for i, batch in enumerate(coords):
         for x, y in batch:
-            draw.text((y,x), str(i+1), font=font, fill=(0, 0, 0))
+            if(y-4 >= 0 and x-4 >= 0):
+                draw.text((y-4,x-4), str(i+1), font=font, fill=(0, 0, 0))
     return  np.array(image_pil)

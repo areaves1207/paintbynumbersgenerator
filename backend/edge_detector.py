@@ -36,4 +36,25 @@ def detect_edges_canny(img):
 
 
 def detect_edges_tight(img):
-    print('Hi')
+    np.zeros_like(img)
+    rows, cols, _ = img.shape
+    for x in range(rows - 1):
+        for y in range(cols - 1):
+            center = img[x, y]
+            # above, below, left, right = 
+            if not np.all(center == [255, 255, 255]):  # skip black pixels
+                right = img[x, y + 1]
+                bottom = img[x + 1, y]
+                #check down and right pixels for changes
+                if not np.all(center == right) and not np.all(center == bottom):
+                    img[x, y] = [255, 255, 255]
+                    # img[x, y + 1] = [255, 255, 255]
+                    # img[x + 1, y] = [255, 255, 255]
+                elif not np.all(center == right):
+                    img[x, y] = [255, 255, 255]
+                    # img[x, y + 1] = [255, 255, 255]
+                elif not np.all(center == bottom):
+                    img[x, y] = [255, 255, 255]
+                    # img[x + 1, y] = [255, 255, 255]
+                    
+    return img
