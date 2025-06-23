@@ -1,0 +1,4 @@
+@font-face {
+  font-family: 'avenir'; /* Choose a name for your font */
+  src: url('../src/components/fonts/avenir-light.ttf'); /* Specify the path to your TTF file */
+}
