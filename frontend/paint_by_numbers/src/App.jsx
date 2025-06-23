@@ -5,6 +5,7 @@ import Title from "./components/Title";
 import './components/fonts.css';
 import Gallery from "./components/Gallery";
 import Generator from "./components/Generator";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Gallery></Gallery>
         <Generator></Generator>
       </div>
+      <Footer></Footer>
     </div>
   )
 }
