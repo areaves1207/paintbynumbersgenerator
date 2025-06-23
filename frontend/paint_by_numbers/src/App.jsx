@@ -4,6 +4,7 @@ import './App.css';
 import Title from "./components/Title";
 import './components/fonts.css';
 import Gallery from "./components/Gallery";
+import Generator from "./components/Generator";
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
       <Header></Header>
       <Title></Title>
       <Gallery></Gallery>
-      <PaintByNumbers></PaintByNumbers>
+      <Generator></Generator>
     </div>
   )
 }
