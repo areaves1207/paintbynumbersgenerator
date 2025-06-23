@@ -10,9 +10,11 @@ function App() {
   return (
     <div className="App">
       <Header></Header>
-      <Title></Title>
-      <Gallery></Gallery>
-      <Generator></Generator>
+      <div className={StyleSheet.body}>
+        <Title></Title>
+        <Gallery></Gallery>
+        <Generator></Generator>
+      </div>
     </div>
   )
 }
