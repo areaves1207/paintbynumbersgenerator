@@ -1,0 +1,33 @@
+.footer{
+    background-color: white;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 2.5vh;
+    padding-top: 2.5vh;
+}
+
+.claims{
+    font-size: small;
+    margin-left: 5vh;
+}
+
+.logos{
+    display:inline-block;
+    
+    object-fit: contain;
+    font-size: small;
+    margin-right: 10vh;
+}
+
+.logos:hover{
+    cursor: pointer;
+}
+
+.img{
+    height: 2em;
+    width: auto;
+    vertical-align: -0.6em;
+    overflow: hidden;
+}
