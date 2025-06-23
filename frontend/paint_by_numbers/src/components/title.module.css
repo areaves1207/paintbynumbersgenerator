@@ -1,9 +1,40 @@
 .title{
     font-family: 'avenir', sans-serif;
-    background-color: blanchedalmond;
+    background-color: rgb(211, 195, 170);
     text-align: center;
     align-items: center;
     justify-content: space-between;
+
+    padding-top: 10vh;
+    padding-bottom: 10vh;
+
+    letter-spacing: 0.25em;
 }
 
+.sirtitle{
+    font-size:xx-large;
+    margin-bottom: 2.5%;
+}
+
+.subtitle{
+    font-size: small;
+}
+
+.button{
+    letter-spacing: 0.1em;
+    font-family: 'avenir', sans-serif;
+    color: white;
+    background-color: #112100;
+    margin-top: 1%;
+    padding: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    border-radius: 100px;
+    border: 2px solid black;
+}
+
+.button:hover{
+    background-color: #546e37;
+}
 
