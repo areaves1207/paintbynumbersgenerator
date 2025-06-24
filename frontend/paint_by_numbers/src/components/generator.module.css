@@ -2,6 +2,8 @@
     align-items: center;
     align-content: center;
     text-align: center;
+    display: flex;
+    flex-direction: column;
 
     background-color: rgb(211, 195, 170);
 }
@@ -14,5 +16,15 @@
 .button{
 
     margin-top: 10vh;
-    margin-bottom: 30vh;
+    margin-bottom: 2vh;
+    
+}
+
+.imagePreview{
+    max-width: 480px;
+    max-height: 720px;
+    border-style: solid;
+    border-color: black;
+    border-width: 3px;
+    margin-bottom: 10vh;
 }
