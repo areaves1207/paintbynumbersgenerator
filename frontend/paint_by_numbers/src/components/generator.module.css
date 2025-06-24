@@ -20,11 +20,14 @@
     
 }
 
-.imagePreview{
+.preview{
+    margin-bottom: 10vh;
+}
+
+.img{
     max-width: 480px;
     max-height: 720px;
     border-style: solid;
     border-color: black;
     border-width: 3px;
-    margin-bottom: 10vh;
 }
