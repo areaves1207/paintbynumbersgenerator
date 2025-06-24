@@ -37,17 +37,19 @@ export default function Generator(){
             <div className={styles.preview} >
                 <img className={styles.img} src={previewUrl}></img>
 
-                <Checkbox
-                    checked={checkboxes.reduceImg}
-                    onChange={() => handleCheckboxChange("reduceImg")}
-                    label="Reduce image size?"
-                />
+                <div className={styles.checkboxes}>
+                    <Checkbox
+                        checked={checkboxes.reduceImg}
+                        onChange={() => handleCheckboxChange("reduceImg")}
+                        label="Reduce image size?"
+                    />
 
-                <Checkbox
-                    checked={checkboxes.option2}
-                    onChange={() => handleCheckboxChange("option2")}
-                    label="option 2"
-                />
+                    <Checkbox
+                        checked={checkboxes.option2}
+                        onChange={() => handleCheckboxChange("option2")}
+                        label="option 2"
+                    />
+                </div>
             </div>
             
         </div>

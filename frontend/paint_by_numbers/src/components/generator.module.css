@@ -21,13 +21,27 @@
 }
 
 .preview{
+    display: flex;
     margin-bottom: 10vh;
 }
 
 .img{
+    object-fit: contain;
     max-width: 480px;
     max-height: 720px;
     border-style: solid;
     border-color: black;
     border-width: 3px;
+}
+
+.checkboxes{
+    font-size: large;
+    display: flex;
+    align-items: start;
+    
+    flex-direction: column;
+}
+
+input[type="checkbox"] {
+    cursor: pointer;
 }
