@@ -27,8 +27,8 @@
 
 .img{
     object-fit: contain;
-    max-width: 480px;
-    max-height: 720px;
+    max-width: 120px;
+    max-height: 360px;
     border-style: solid;
     border-color: black;
     border-width: 3px;
@@ -44,4 +44,8 @@
 
 input[type="checkbox"] {
     cursor: pointer;
+}
+
+.radioLabel{
+    margin-right: 10px;
 }
