@@ -22,7 +22,7 @@
 
 .preview{
     display: flex;
-    margin-bottom: 10vh;
+    margin-bottom: 3vh;
 }
 
 .img{
@@ -37,8 +37,8 @@
 .checkboxes{
     font-size: large;
     display: flex;
-    align-items: start;
-    
+    align-items:start;
+    /* position: relative; */
     flex-direction: column;
 }
 
@@ -48,4 +48,8 @@ input[type="checkbox"] {
 
 .radioLabel{
     margin-right: 10px;
+}
+
+.radioGroup{
+    position: absolute;
 }

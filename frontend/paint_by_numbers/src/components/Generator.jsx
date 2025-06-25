@@ -2,11 +2,11 @@ import Checkbox from "./Checkbox";
 import styles from "./generator.module.css"
 import { useState } from "react";
 
-export default function Generator(){
+export default function Generator() {
     const [selectedFile, setSelectedFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
     const [selectedImgSize, setSelectedImgSize] = useState("480p");
-    const [numColors, setNumColors ] = useState(16);
+    const [numColors, setNumColors] = useState(16);
 
 
     const [checkboxes, setChecked] = useState({
@@ -14,7 +14,7 @@ export default function Generator(){
         option2: false
     });
 
-    const handleSlider = (event) =>{
+    const handleSlider = (event) => {
         setNumColors(event.target.value);
     };
 
@@ -27,17 +27,17 @@ export default function Generator(){
         setChecked(prev => ({
             ...prev,
             [key]: !prev[key]
-        })); 
+        }));
     };
-    
+
     const fileUploadHandler = event => {
         const file = event.target.files[0];
         console.log(file);
-        if(file){
+        if (file) {
             setSelectedFile(file);
             setPreviewUrl(URL.createObjectURL(file));
         }
-        
+
     };
 
     return (
@@ -46,36 +46,42 @@ export default function Generator(){
 
             <input type='file' accept="image/*" className={styles.button} onChange={fileUploadHandler}></input>
 
-            <div className={styles.preview} >
-                {selectedFile != null && (<img className={styles.img} src={previewUrl}></img>)}
+            {selectedFile != null && 
+            (<div className={styles.imageOptions}>
+                
+                <div className={styles.preview}>
+                    <img className={styles.img} src={previewUrl}></img>
 
-                {selectedFile != null && (<div className={styles.checkboxes}>
-                    <Checkbox
-                        checked={checkboxes.reduceImg}
-                        onChange={() => handleCheckboxChange("reduceImg")}
-                        label="Reduce image size?"
-                    />
+                    <div>
+                        <Checkbox
+                            className={styles.checkboxes}
+                            checked={checkboxes.reduceImg}
+                            onChange={() => handleCheckboxChange("reduceImg")}
+                            label="Reduce image size?"
+                        />
 
-                    {checkboxes.reduceImg && (
-                        <div>
-                            <label className={styles.radioLabel}> <input type="radio" value="480p" checked={selectedImgSize === "480p"} onChange={handleImgSizeChange}/>480p</label>
-                            <label className={styles.radioLabel}> <input type="radio" value="720p" checked={selectedImgSize === "720p"} onChange={handleImgSizeChange}/>720p</label>
-                            <label className={styles.radioLabel}> <input type="radio" value="1080p" checked={selectedImgSize === "1080p"} onChange={handleImgSizeChange}/>1080p</label>
+                        {checkboxes.reduceImg && 
+                        (<div className={styles.radioGroup}>
+                            <label className={styles.radioLabel}> <input type="radio" value="480p" checked={selectedImgSize === "480p"} onChange={handleImgSizeChange} />480p</label>
+                            <label className={styles.radioLabel}> <input type="radio" value="720p" checked={selectedImgSize === "720p"} onChange={handleImgSizeChange} />720p</label>
+                            <label className={styles.radioLabel}> <input type="radio" value="1080p" checked={selectedImgSize === "1080p"} onChange={handleImgSizeChange} />1080p</label>
                         </div>
-                    )}
-
-                    {/* <Checkbox
-                        checked={checkboxes.option2}
-                        onChange={() => handleCheckboxChange("option2")}
-                        label="option 2"
-                    /> */}
-                </div>)}
-
-                <div>
-                    <input type="range" min="4" max="128" value={numColors} onChange={handleSlider}></input><p>{numColors}</p>
+                        )}
+                    </div>
                 </div>
-            </div>
-            
+
+                {/* slider bar */}
+                {selectedFile != null &&
+                    (<div>
+                        <input type="range" min="4" max="128" value={numColors} onChange={handleSlider} />
+                        <p>{numColors}</p>
+                    </div>)
+                }
+
+                <input type="button"></input>
+
+            </div>)}
+
         </div>
     );
 }
