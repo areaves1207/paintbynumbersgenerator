@@ -53,3 +53,28 @@ input[type="checkbox"] {
 .radioGroup{
     position: absolute;
 }
+
+.numColors{
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 5vh;
+}
+
+.submitButton{
+    letter-spacing: 0.1em;
+    font-family: 'avenir', sans-serif;
+    color: white;
+    background-color: #112100;
+    margin-top: 1%;
+    margin-bottom: 10vh;
+    padding: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    border-radius: 100px;
+    border: 2px solid black;
+}
+
+.submitButton:hover{
+    background-color: #546e37;
+}

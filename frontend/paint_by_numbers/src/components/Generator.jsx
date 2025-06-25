@@ -40,6 +40,10 @@ export default function Generator() {
 
     };
 
+    const handleSubmit = event =>{
+
+    };
+
     return (
         <div className={styles.div}>
             <div className={styles.infoText}>Upload an image to generate it's canvas</div>
@@ -72,13 +76,14 @@ export default function Generator() {
 
                 {/* slider bar */}
                 {selectedFile != null &&
-                    (<div>
+                    (<label className={styles.numColors}>
+                        Number of Colors: 
                         <input type="range" min="4" max="128" value={numColors} onChange={handleSlider} />
-                        <p>{numColors}</p>
-                    </div>)
+                        {numColors}
+                    </label>)
                 }
 
-                <input type="button"></input>
+                <button className={styles.submitButton} onClick={handleSubmit}>GENERATE</button>
 
             </div>)}
 
