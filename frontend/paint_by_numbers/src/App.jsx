@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import PaintByNumbers from "./components/PaintByNumbers"
 import Header from "./components/Header"
 import './App.css';
@@ -7,16 +8,24 @@ import Gallery from "./components/Gallery";
 import Generator from "./components/Generator";
 import Footer from "./components/Footer";
 
+
 function App() {
+  const generatorRef = useRef(null);
+
+  const scrollToGenerator = () => {
+    generatorRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+
   return (
     <div className="App">
-      <Header></Header>
+      <Header/>
       <div className={StyleSheet.body}>
-        <Title></Title>
-        <Gallery></Gallery>
-        <Generator></Generator>
+        <Title onClickScroll={scrollToGenerator}/>
+        <Gallery/>
+        <Generator ref={generatorRef}/>
       </div>
-      <Footer></Footer>
+      <Footer/>
     </div>
   )
 }

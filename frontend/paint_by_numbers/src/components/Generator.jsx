@@ -1,8 +1,9 @@
 import Checkbox from "./Checkbox";
 import styles from "./generator.module.css"
-import { useState } from "react";
+import { forwardRef, useState } from "react";
 
-export default function Generator() {
+
+const Generator = forwardRef((_, ref) => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
     const [selectedImgSize, setSelectedImgSize] = useState("480p");
@@ -40,12 +41,14 @@ export default function Generator() {
 
     };
 
+
+
     const handleSubmit = event =>{
 
     };
 
     return (
-        <div className={styles.div}>
+        <div className={styles.div} ref={ref}>
             <div className={styles.infoText}>Upload an image to generate it's canvas</div>
 
             <input type='file' accept="image/*" className={styles.button} onChange={fileUploadHandler}></input>
@@ -89,4 +92,6 @@ export default function Generator() {
 
         </div>
     );
-}
+});
+
+export default Generator;

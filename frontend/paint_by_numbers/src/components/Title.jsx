@@ -1,6 +1,6 @@
 import styles from './title.module.css';
 
-export default function Title(){
+export default function Title({onClickScroll}){
     return (
         <div className={styles.title}>
             <div className={styles.sirtitle}>
@@ -11,7 +11,7 @@ export default function Title(){
                 CREATE ART FROM REALITY
             </div>
 
-            <button className={styles.button}>MAKE A CANVAS</button>
+            <button onClick={onClickScroll} className={styles.button}>MAKE A CANVAS</button>
         </div>
     );
 }
