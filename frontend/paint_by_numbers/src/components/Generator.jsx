@@ -43,8 +43,22 @@ const Generator = forwardRef((_, ref) => {
 
 
 
-    const handleSubmit = event =>{
+    const handleSubmit = async() =>{
+        const formData = new FormData();
+        formData.append("file", selectedFile);
 
+        try{
+            const response = await fetch("http://localhost:8000/uploadimg/", {
+                method: "POST",
+                body: formData
+            });
+
+            const data = await response.json();
+            console.log("Server response: ", data);
+        }
+        catch(err){
+            console.error("UPload failed:", err);
+        }
     };
 
     return (
