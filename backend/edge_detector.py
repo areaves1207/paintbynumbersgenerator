@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from gaussian import GaussianImage, nms, hysteresis, thresh
+from .gaussian import GaussianImage, nms, hysteresis, thresh
 
 # # #Canny edge detector steps:
 # # Apply Gaussian filter to smooth the image in order to remove the noise
