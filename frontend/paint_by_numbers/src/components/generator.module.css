@@ -1,0 +1,80 @@
+.div{
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+
+    background-color: rgb(211, 195, 170);
+}
+
+.infoText{
+    margin-top: 5vh;
+    font-size: larger;
+}
+
+.button{
+
+    margin-top: 10vh;
+    margin-bottom: 2vh;
+    
+}
+
+.preview{
+    display: flex;
+    margin-bottom: 3vh;
+}
+
+.img{
+    object-fit: contain;
+    max-width: 120px;
+    max-height: 360px;
+    border-style: solid;
+    border-color: black;
+    border-width: 3px;
+}
+
+.checkboxes{
+    font-size: large;
+    display: flex;
+    align-items:start;
+    /* position: relative; */
+    flex-direction: column;
+}
+
+input[type="checkbox"] {
+    cursor: pointer;
+}
+
+.radioLabel{
+    margin-right: 10px;
+}
+
+.radioGroup{
+    position: absolute;
+}
+
+.numColors{
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 5vh;
+}
+
+.submitButton{
+    letter-spacing: 0.1em;
+    font-family: 'avenir', sans-serif;
+    color: white;
+    background-color: #112100;
+    margin-top: 1%;
+    margin-bottom: 10vh;
+    padding: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    border-radius: 100px;
+    border: 2px solid black;
+}
+
+.submitButton:hover{
+    background-color: #546e37;
+}

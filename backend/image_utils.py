@@ -1,9 +1,9 @@
 import cv2 as cv
 import numpy as np
 import matplotlib.pyplot as plt
-from color_clustering import k_means_clustering
+from .color_clustering import k_means_clustering
 
-def setup_image(img_file_location, reduce=False):
+def setup_image_from_path(img_file_location, reduce=False):
     img = cv.imread(img_file_location, -1) #Read in file as is
     img = cv.cvtColor(img, cv.COLOR_BGR2RGB) #swap from BGR to RGB 
     if(reduce):
@@ -13,7 +13,25 @@ def setup_image(img_file_location, reduce=False):
     bilateral_blurred_img = cv.bilateralFilter(img, 7, 50, 50)
     return bilateral_blurred_img
 
+def setup_image(img, reduce=False):
+    img = cv.cvtColor(img, cv.COLOR_BGR2RGB) #swap from BGR to RGB 
+    if(reduce):
+        img = cv.resize(img, (720, 480), interpolation=cv.INTER_AREA)
 
+    # gaussian = cv.GaussianBlur(img, sigma, size)
+    bilateral_blurred_img = cv.bilateralFilter(img, 7, 50, 50)
+    return bilateral_blurred_img
+
+def setup_image_from_path(img_file_location, reduce=False):
+    img = cv.imread(img_file_location, -1) #Read in file as is
+    img = cv.cvtColor(img, cv.COLOR_BGR2RGB) #swap from BGR to RGB 
+    if(reduce):
+        img = cv.resize(img, (720, 480), interpolation=cv.INTER_AREA)
+
+    # gaussian = cv.GaussianBlur(img, sigma, size)
+    bilateral_blurred_img = cv.bilateralFilter(img, 7, 50, 50)
+    return bilateral_blurred_img
+    
 def display_dual_imgs(img1, img2):
     plt.subplot(1, 2, 1)
     plt.imshow(img1, cmap='gray')
