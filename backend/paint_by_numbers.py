@@ -36,4 +36,6 @@ def paint_by_numbers_gen(img):
     final_image_t = draw_palette_onto_img(padded_img_t, palette)
 
     # display_image(final_image)
-    display_dual_imgs(final_image_t, final_image)
+    # display_dual_imgs(final_image_t, final_image)
+    print("Image complete")
+    return final_image_t, final_image #_t uses accurate line detector, other uses gaussian

@@ -8,6 +8,9 @@ const Generator = forwardRef((_, ref) => {
     const [previewUrl, setPreviewUrl] = useState(null);
     const [selectedImgSize, setSelectedImgSize] = useState("480p");
     const [numColors, setNumColors] = useState(16);
+    //where the result imgs are stored
+    const [imgTight, setImgTight] = useState(null);
+    const [imgSmooth, setImgSmooth] = useState(null);
 
 
     const [checkboxes, setChecked] = useState({
@@ -55,6 +58,8 @@ const Generator = forwardRef((_, ref) => {
 
             const data = await response.json();
             console.log("Server response: ", data);
+            setImgTight(data.result_tight);
+            setImgSmooth(data.result_smooth);
         }
         catch(err){
             console.error("UPload failed:", err);
@@ -103,6 +108,11 @@ const Generator = forwardRef((_, ref) => {
                 <button className={styles.submitButton} onClick={handleSubmit}>GENERATE</button>
 
             </div>)}
+
+            <div className={styles.resultImages}>
+                {imgTight && <img src={imgTight} alt="tight result" />}
+                {imgSmooth && <img src={imgSmooth} alt="smooth result" />}
+            </div>
 
         </div>
     );

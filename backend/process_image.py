@@ -1,8 +1,12 @@
+import json
 import cv2 as cv
 import numpy as np
-from fastapi import FastAPI, UploadFile, File
+from fastapi import FastAPI, UploadFile, File # type: ignore
+from PIL import Image
+import io
+import base64
 
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.cors import CORSMiddleware # type: ignore
 
 from .paint_by_numbers import paint_by_numbers_gen
 
@@ -42,6 +46,13 @@ def get_item(item_id: int) -> str:
 
 
 
+#chatgpt generated img encoder
+def array_to_base64_img(np_array):
+    img = Image.fromarray(np_array.astype("uint8"))
+    buffered = io.BytesIO()
+    img.save(buffered, format="PNG")
+    return base64.b64encode(buffered.getvalue()).decode("utf-8")
+
 
 @app.post("/uploadimg/")
 async def create_upload_img(file: UploadFile = File(...)):
@@ -55,8 +66,10 @@ async def create_upload_img(file: UploadFile = File(...)):
         return{"ERROR": "FAILED TO DECODE IMG"}
     
     print("Image {file.filename} decoded successfully")
-    paint_by_numbers_gen(img_np)
+    result_tight, result_smooth = paint_by_numbers_gen(img_np)
+    result_tight = array_to_base64_img(result_tight)
+    result_smooth = array_to_base64_img(result_smooth)
 
-    return {"File uploaded successfully"}
-
-
+    return {"Message": "Image processed successfully", 
+            "result_tight": result_tight, 
+            "result_smooth": result_smooth}
