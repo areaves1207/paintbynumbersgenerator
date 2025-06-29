@@ -1,5 +1,6 @@
 import Checkbox from "./Checkbox";
 import styles from "./generator.module.css"
+import JSZip from "jszip";
 import { forwardRef, useState } from "react";
 
 
@@ -51,15 +52,23 @@ const Generator = forwardRef((_, ref) => {
         formData.append("file", selectedFile);
 
         try{
-            const response = await fetch("http://localhost:8000/uploadimg/", {
+            const response = await fetch("http://localhost:8000/upload_img/", {
                 method: "POST",
                 body: formData
             });
 
-            const data = await response.json();
-            console.log("Server response: ", data);
-            setImgTight(data.result_tight);
-            setImgSmooth(data.result_smooth);
+
+            const blob = await response.blob();
+            const zip = await JSZip.loadAsync(blob);
+
+            const tightImg = await zip.file("final_image_smooth.png").async("blob");
+            const smoothImg = await zip.file("final_image_tight.png").async("blob");
+
+            const img1Url = URL.createObjectURL(tightImg);
+            const img2Url = URL.createObjectURL(smoothImg);
+            
+            setImgTight(img1Url);
+            setImgSmooth(img2Url);
         }
         catch(err){
             console.error("UPload failed:", err);

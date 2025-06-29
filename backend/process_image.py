@@ -2,6 +2,7 @@ import json
 import cv2 as cv
 import numpy as np
 from fastapi import FastAPI, UploadFile, File # type: ignore
+from fastapi.responses import StreamingResponse
 from PIL import Image
 import io
 import base64
@@ -58,7 +59,7 @@ from PIL import Image
 from io import BytesIO
 import zipfile
 
-@app.post("/uploadimg/")
+@app.post("/upload_img/")
 async def create_upload_img(file: UploadFile = File(...)):
     print(f"Received file: {file.filename} with content type: {file.content_type}")
 
@@ -73,11 +74,22 @@ async def create_upload_img(file: UploadFile = File(...)):
     print("Image {file.filename} decoded successfully")
     result_tight, result_smooth = paint_by_numbers_gen(img_np)
     #conv imgs to PIL    
+    result_tight = Image.fromarray(result_tight)
+    result_smooth = Image.fromarray(result_smooth)
 
     zip_buffer = BytesIO()
     with zipfile.ZipFile(zip_buffer, "w") as zip_file:
         img1_io = BytesIO()
         result_tight.save(img1_io, format="PNG")
         img1_io.seek(0)
-
-        zip_file.writestr()
+        zip_file.writestr("final_image_tight.png", img1_io.read())
+        
+        img2_io = BytesIO()
+        result_smooth.save(img2_io, format="PNG")
+        img2_io.seek(0)
+        zip_file.writestr("final_image_smooth.png", img2_io.read())
+    
+    zip_buffer.seek(0)
+    return StreamingResponse(zip_buffer, media_type="application/zip", headers={
+        "Content": "attachment; filename=processed_images.zip"
+    })
