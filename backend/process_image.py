@@ -54,10 +54,15 @@ def array_to_base64_img(np_array):
     return base64.b64encode(buffered.getvalue()).decode("utf-8")
 
 
+from PIL import Image
+from io import BytesIO
+import zipfile
+
 @app.post("/uploadimg/")
 async def create_upload_img(file: UploadFile = File(...)):
     print(f"Received file: {file.filename} with content type: {file.content_type}")
 
+    #read in img from front end as uint8 thru cv
     contents = await file.read()
     np_arr = np.frombuffer(contents, np.uint8)
     img_np = cv.imdecode(np_arr, cv.IMREAD_COLOR)
@@ -67,9 +72,12 @@ async def create_upload_img(file: UploadFile = File(...)):
     
     print("Image {file.filename} decoded successfully")
     result_tight, result_smooth = paint_by_numbers_gen(img_np)
-    result_tight = array_to_base64_img(result_tight)
-    result_smooth = array_to_base64_img(result_smooth)
+    #conv imgs to PIL    
 
-    return {"Message": "Image processed successfully", 
-            "result_tight": result_tight, 
-            "result_smooth": result_smooth}
+    zip_buffer = BytesIO()
+    with zipfile.ZipFile(zip_buffer, "w") as zip_file:
+        img1_io = BytesIO()
+        result_tight.save(img1_io, format="PNG")
+        img1_io.seek(0)
+
+        zip_file.writestr()
