@@ -50,19 +50,20 @@ const Generator = forwardRef((_, ref) => {
     const handleSubmit = async() =>{
         const formData = new FormData();
         formData.append("file", selectedFile);
+        formData.append("numColors", numColors);
 
         try{
             const response = await fetch("http://localhost:8000/upload_img/", {
                 method: "POST",
-                body: formData
+                body: formData,
             });
 
 
             const blob = await response.blob();
             const zip = await JSZip.loadAsync(blob);
 
-            const tightImg = await zip.file("final_image_smooth.png").async("blob");
-            const smoothImg = await zip.file("final_image_tight.png").async("blob");
+            const smoothImg = await zip.file("final_image_smooth.png").async("blob");
+            const tightImg = await zip.file("final_image_tight.png").async("blob");
 
             const img1Url = URL.createObjectURL(tightImg);
             const img2Url = URL.createObjectURL(smoothImg);
@@ -109,7 +110,7 @@ const Generator = forwardRef((_, ref) => {
                 {selectedFile != null &&
                     (<label className={styles.numColors}>
                         Number of Colors: 
-                        <input type="range" min="4" max="128" value={numColors} onChange={handleSlider} />
+                        <input type="range" min="4" max="64" value={numColors} onChange={handleSlider} />
                         {numColors}
                     </label>)
                 }
@@ -118,10 +119,22 @@ const Generator = forwardRef((_, ref) => {
 
             </div>)}
 
-            <div className={styles.resultImages}>
-                {imgTight && <img src={imgTight} alt="tight result" />}
-                {imgSmooth && <img src={imgSmooth} alt="smooth result" />}
-            </div>
+            {imgSmooth && imgTight && <div className={styles.resultImages}>
+                <figure>
+                    {<img src={imgTight} className={styles.result_img} alt="tight result" />}
+                    <figcaption>Tight image</figcaption>
+                    <a href={imgTight} download="tight_result.png">
+                        <button>Download Tight Image</button>
+                    </a>
+                </figure>
+                <figure>
+                    {<img src={imgSmooth} className={styles.result_img} alt="smooth result" />}
+                    <figcaption>Smooth image</figcaption>
+                    <a href={imgTight} download="tight_result.png">
+                        <button>Download Smooth Image</button>
+                    </a>
+                </figure>
+            </div>}
 
         </div>
     );

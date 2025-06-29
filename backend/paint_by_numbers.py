@@ -9,11 +9,10 @@ from .number_drawing import draw_numbers_pil
 
 # img = setup_image_from_path(img_file_location = "backend/" + images[6], reduce=True)
 
-def paint_by_numbers_gen(img):
+def paint_by_numbers_gen(img, num_colors):
     img = setup_image(img, reduce=True)
     height, width, _ = img.shape
 
-    num_colors = 16
     #TODO: potential issue i thought of it its possible when we add edges, those pixels are still
     # stored under their specific batches, so if we update with a fill in color option it
     # may color the edges too

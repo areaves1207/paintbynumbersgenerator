@@ -1,7 +1,7 @@
 import json
 import cv2 as cv
 import numpy as np
-from fastapi import FastAPI, UploadFile, File # type: ignore
+from fastapi import FastAPI, Form, UploadFile, File # type: ignore
 from fastapi.responses import StreamingResponse
 from PIL import Image
 import io
@@ -60,8 +60,9 @@ from io import BytesIO
 import zipfile
 
 @app.post("/upload_img/")
-async def create_upload_img(file: UploadFile = File(...)):
+async def create_upload_img(file: UploadFile = File(...), numColors: int = Form(...)):
     print(f"Received file: {file.filename} with content type: {file.content_type}")
+    print(f"Received NumColors value of: {numColors}")
 
     #read in img from front end as uint8 thru cv
     contents = await file.read()
@@ -72,7 +73,7 @@ async def create_upload_img(file: UploadFile = File(...)):
         return{"ERROR": "FAILED TO DECODE IMG"}
     
     print("Image {file.filename} decoded successfully")
-    result_tight, result_smooth = paint_by_numbers_gen(img_np)
+    result_tight, result_smooth = paint_by_numbers_gen(img_np, numColors)
     #conv imgs to PIL    
     result_tight = Image.fromarray(result_tight)
     result_smooth = Image.fromarray(result_smooth)

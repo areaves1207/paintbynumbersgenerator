@@ -78,3 +78,18 @@ input[type="checkbox"] {
 .submitButton:hover{
     background-color: #546e37;
 }
+
+.resultImages{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10vh;
+    gap: 5vh;
+}
+
+.result_img{
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+    /* max-width: 75%; */
+    max-height: auto;
+}
