@@ -10,7 +10,7 @@ from .number_drawing import draw_numbers_pil
 # img = setup_image_from_path(img_file_location = "backend/" + images[6], reduce=True)
 
 def paint_by_numbers_gen(img, num_colors):
-    img = setup_image(img, reduce=True)
+    img = setup_image(img, force_scale=True)
     height, width, _ = img.shape
 
     #TODO: potential issue i thought of it its possible when we add edges, those pixels are still

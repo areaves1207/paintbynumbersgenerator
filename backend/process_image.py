@@ -72,7 +72,7 @@ async def create_upload_img(file: UploadFile = File(...), numColors: int = Form(
     if img_np is None:
         return{"ERROR": "FAILED TO DECODE IMG"}
     
-    print("Image {file.filename} decoded successfully")
+    print(f"Image {file.filename} decoded successfully")
     result_tight, result_smooth = paint_by_numbers_gen(img_np, numColors)
     #conv imgs to PIL    
     result_tight = Image.fromarray(result_tight)

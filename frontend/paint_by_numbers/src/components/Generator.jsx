@@ -46,8 +46,9 @@ const Generator = forwardRef((_, ref) => {
     };
 
 
-
+    // when the GENERATE button is clicked
     const handleSubmit = async() =>{
+        setImgTight(null); setImgSmooth(null);
         const formData = new FormData();
         formData.append("file", selectedFile);
         formData.append("numColors", numColors);
