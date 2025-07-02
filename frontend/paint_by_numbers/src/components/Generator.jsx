@@ -74,11 +74,12 @@ const Generator = forwardRef((_, ref) => {
             
             setImgTight(img1Url);
             setImgSmooth(img2Url);
-            setGenerating(false);
+            
         }
         catch(err){
             console.error("UPload failed:", err);
         }
+        setGenerating(false);
     };
 
     return (

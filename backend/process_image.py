@@ -48,6 +48,7 @@ async def create_upload_img(file: UploadFile = File(...), numColors: int = Form(
     img_np = cv.imdecode(np_arr, cv.IMREAD_COLOR)
 
     if img_np is None:
+        print("ERROR: FAILED TO DECODE IMG")
         return{"ERROR": "FAILED TO DECODE IMG"}
     
     print(f"Image {file.filename} decoded successfully")
