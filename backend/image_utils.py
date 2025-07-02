@@ -16,12 +16,9 @@ def setup_image_from_path(img_file_location, reduce=False):
 def setup_image(img, force_scale=True):
     img = cv.cvtColor(img, cv.COLOR_BGR2RGB) #swap from BGR to RGB 
 
-    # w = 1920
-    # h = 1080
-    w = 240
-    h = 144 #TESTING PURPOSES
+    w = 1280
+    h = 720
     if(force_scale):
-        #1080x1920 / HxW
         if(img.shape[0] > img.shape[1]): #if our img is portrait we need to scale to portrait
             print("Scaling to portait mode")
             img = cv.resize(img, (h, w), interpolation=cv.INTER_AREA)
