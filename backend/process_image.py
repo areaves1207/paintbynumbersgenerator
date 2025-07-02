@@ -17,12 +17,14 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173",  "https://paintbynumbersgenerator2.vercel.app",],  # frontend origin
+    allow_origins=[
+        "https://paintbynumbersgenerator2.vercel.app",
+        "http://localhost:5173"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 #chatgpt generated img encoder
 def array_to_base64_img(np_array):
