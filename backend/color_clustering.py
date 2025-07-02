@@ -14,9 +14,9 @@ def k_means_clustering(k, img):
     prev_centroids = None
 
     #Assign pixels to clusters
-    print("Generating image", end="")
+    print("Generating image...", end="")
     while(True):
-        print(".", end="", flush=True)
+        # print(".", end="", flush=True)
         clusters = assign_clusters(img, centroids, clusters)
         centroids = update_centroids(img, clusters)
         
