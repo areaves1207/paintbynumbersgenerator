@@ -2,7 +2,7 @@ import json
 import cv2 as cv
 import numpy as np
 from fastapi import FastAPI, Form, UploadFile, File # type: ignore
-from fastapi.responses import StreamingResponse
+from fastapi.responses import StreamingResponse # type: ignore
 from PIL import Image
 import io
 import base64
@@ -71,7 +71,3 @@ async def create_upload_img(file: UploadFile = File(...), numColors: int = Form(
     return StreamingResponse(zip_buffer, media_type="application/zip", headers={
         "Content": "attachment; filename=processed_images.zip"
     })
-
-@app.post("/current_step/")
-async def create_upload_img(step: str):
-    return ("On step: " + step)

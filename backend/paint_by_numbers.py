@@ -27,10 +27,10 @@ def paint_by_numbers_gen(img, num_colors):
     numbered_image = draw_numbers_pil(combined, center_of_masses)
     numbered_image_tight = draw_numbers_pil(combined_tight, center_of_masses)
 
-    padded_img = add_padding(numbered_image, width // 12)
+    padded_img = add_padding(numbered_image, width // 15)
     palette = generate_palette(height, color_pallete)
 
-    padded_img_t = add_padding(numbered_image_tight, width // 12)
+    padded_img_t = add_padding(numbered_image_tight, width // 15)
     final_image = draw_palette_onto_img(padded_img, palette)
     final_image_t = draw_palette_onto_img(padded_img_t, palette)
 

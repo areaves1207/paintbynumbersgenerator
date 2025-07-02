@@ -15,7 +15,7 @@ def generate_palette(img_height, color_palette):
         bottom_right_point = (box_size, y + box_size)
         color = tuple(int(c) for c in color_palette[color_idx])
         cv.rectangle(img=palette, pt1=top_left_point, pt2= bottom_right_point, color=color, thickness=-1)
-        cv.putText(img=palette, text=str(color_idx+1), org=(box_size // 2, y + (box_size//2 + 1)), fontFace=cv.FONT_HERSHEY_SIMPLEX, fontScale=0.5, color=(0,0,0), thickness=2)
+        cv.putText(img=palette, text=str(color_idx+1), org=(int(box_size), y + (box_size//2 + 1)), fontFace=cv.FONT_HERSHEY_SIMPLEX, fontScale=0.75, color=(0,0,0), thickness=2)
 
     return palette
 

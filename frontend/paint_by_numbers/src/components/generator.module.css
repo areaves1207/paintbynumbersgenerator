@@ -64,9 +64,11 @@ input[type="checkbox"] {
     color: white;
     background-color: #112100;
     margin-top: 1%;
+    margin-bottom: 3vh;
     padding: 10px;
     padding-left: 10px;
     padding-right: 10px;
+    
 
     border-radius: 100px;
     border: 2px solid black;

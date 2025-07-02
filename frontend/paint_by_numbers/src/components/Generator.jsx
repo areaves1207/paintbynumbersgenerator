@@ -103,14 +103,15 @@ const Generator = forwardRef((_, ref) => {
                     </label>)
                 }
 
-                <button className={styles.generateButton} onClick={handleSubmit}>GENERATE</button>
+                {!generating 
+                    ? 
+                    (<button className={styles.generateButton} onClick={handleSubmit}>GENERATE</button> )
+                    :
+                    (<div className={styles.spinner}><SpinnerLoader/></div>)
+                }
 
             </div>)}
             
-            {selectedFile != null && generating && (<div className={styles.spinner}>
-                <SpinnerLoader/>
-            </div>)}
-
             {imgSmooth && imgTight && <div className={styles.resultImages}>
                 <figure>
                     {<img src={imgTight} className={styles.result_img} alt="tight result" />}
