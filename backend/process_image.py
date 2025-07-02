@@ -18,7 +18,8 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "*"
+        "https://paintbynumbersgenerator2.vercel.app",
+        "http://localhost:5173"
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -72,3 +73,9 @@ async def create_upload_img(file: UploadFile = File(...), numColors: int = Form(
     return StreamingResponse(zip_buffer, media_type="application/zip", headers={
         "Content": "attachment; filename=processed_images.zip"
     })
+
+
+@app.get("/ping")
+async def ping():
+    print("Ping received")
+    return {"message": "ok"}
