@@ -21,7 +21,7 @@ def setup_image(img, force_scale=True):
         if(img.shape[0] > img.shape[1]): #if our img is portrait we need to scale to portrait
             print("Scaling to portait mode")
             img = cv.resize(img, (1080, 1920), interpolation=cv.INTER_AREA)
-        if(img.shape[0] < 1080 or img.shape[1] < 1920):
+        else:
             print("Scaling to landscape mode")
             img = cv.resize(img, (1920, 1080), interpolation=cv.INTER_AREA)
 

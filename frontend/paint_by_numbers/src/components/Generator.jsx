@@ -1,4 +1,4 @@
-import Checkbox from "./Checkbox";
+import SpinnerLoader from "./SpinnerLoader";
 import styles from "./generator.module.css"
 import JSZip from "jszip";
 import { forwardRef, useState } from "react";
@@ -12,6 +12,7 @@ const Generator = forwardRef((_, ref) => {
     //where the result imgs are stored
     const [imgTight, setImgTight] = useState(null);
     const [imgSmooth, setImgSmooth] = useState(null);
+    const [generating, setGenerating] = useState(false);
 
 
     const [checkboxes, setChecked] = useState({
@@ -36,6 +37,7 @@ const Generator = forwardRef((_, ref) => {
     };
 
     const fileUploadHandler = event => {
+        setGenerating(false);
         const file = event.target.files[0];
         console.log(file);
         if (file) {
@@ -49,6 +51,7 @@ const Generator = forwardRef((_, ref) => {
     // when the GENERATE button is clicked
     const handleSubmit = async() =>{
         setImgTight(null); setImgSmooth(null);
+        setGenerating(true);
         const formData = new FormData();
         formData.append("file", selectedFile);
         formData.append("numColors", numColors);
@@ -71,6 +74,7 @@ const Generator = forwardRef((_, ref) => {
             
             setImgTight(img1Url);
             setImgSmooth(img2Url);
+            setGenerating(false);
         }
         catch(err){
             console.error("UPload failed:", err);
@@ -88,23 +92,6 @@ const Generator = forwardRef((_, ref) => {
                 
                 <div className={styles.preview}>
                     <img className={styles.img} src={previewUrl}></img>
-
-                    <div>
-                        <Checkbox
-                            className={styles.checkboxes}
-                            checked={checkboxes.reduceImg}
-                            onChange={() => handleCheckboxChange("reduceImg")}
-                            label="Reduce image size?"
-                        />
-
-                        {checkboxes.reduceImg && 
-                        (<div className={styles.radioGroup}>
-                            <label className={styles.radioLabel}> <input type="radio" value="480p" checked={selectedImgSize === "480p"} onChange={handleImgSizeChange} />480p</label>
-                            <label className={styles.radioLabel}> <input type="radio" value="720p" checked={selectedImgSize === "720p"} onChange={handleImgSizeChange} />720p</label>
-                            <label className={styles.radioLabel}> <input type="radio" value="1080p" checked={selectedImgSize === "1080p"} onChange={handleImgSizeChange} />1080p</label>
-                        </div>
-                        )}
-                    </div>
                 </div>
 
                 {/* slider bar */}
@@ -116,8 +103,12 @@ const Generator = forwardRef((_, ref) => {
                     </label>)
                 }
 
-                <button className={styles.submitButton} onClick={handleSubmit}>GENERATE</button>
+                <button className={styles.generateButton} onClick={handleSubmit}>GENERATE</button>
 
+            </div>)}
+            
+            {selectedFile != null && generating && (<div className={styles.spinner}>
+                <SpinnerLoader/>
             </div>)}
 
             {imgSmooth && imgTight && <div className={styles.resultImages}>

@@ -24,29 +24,6 @@ app.add_middleware(
 )
 
 
-
-
-
-items = []
-
-
-@app.get("/")
-def root():
-    return{"Hello": "World"}
-
-
-@app.post("/items")
-def create_item(item: str):
-    items.append(item)
-    return items
-
-@app.get("/item/{item_id}")
-def get_item(item_id: int) -> str:
-    item = items[item_id]
-    return item
-
-
-
 #chatgpt generated img encoder
 def array_to_base64_img(np_array):
     img = Image.fromarray(np_array.astype("uint8"))
@@ -94,3 +71,7 @@ async def create_upload_img(file: UploadFile = File(...), numColors: int = Form(
     return StreamingResponse(zip_buffer, media_type="application/zip", headers={
         "Content": "attachment; filename=processed_images.zip"
     })
+
+@app.post("/current_step/")
+async def create_upload_img(step: str):
+    return ("On step: " + step)
