@@ -9,7 +9,7 @@ import base64
 
 from fastapi.middleware.cors import CORSMiddleware # type: ignore
 
-from .paint_by_numbers import paint_by_numbers_gen
+from paint_by_numbers import paint_by_numbers_gen
 
 
 
