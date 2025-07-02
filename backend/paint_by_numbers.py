@@ -1,8 +1,8 @@
-from .palette import add_padding, draw_palette_onto_img, generate_palette
-from .color_clustering import k_means_clustering
-from .image_utils import setup_image, display_dual_imgs, combine_images
-from . import edge_detector
-from .number_drawing import draw_numbers_pil
+from palette import add_padding, draw_palette_onto_img, generate_palette
+from color_clustering import k_means_clustering
+from image_utils import setup_image, display_dual_imgs, combine_images
+import edge_detector
+from number_drawing import draw_numbers_pil
    
     
 # images = ["test_images/sorrento.jpg", "test_images/lemons.jpg", "test_images/1920x1080.jpg", "test_images/dali.jpeg", "test_images/dog.jpeg", "test_images/reef.jpeg", "test_images/vettriano.jpeg", "test_images/woman_in_hallway.png", "test_images/churro.jpg", "test_images/sexy_churro.jpg"]

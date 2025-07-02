@@ -1,7 +1,7 @@
 import cv2 as cv
 import numpy as np
 import matplotlib.pyplot as plt
-from .color_clustering import k_means_clustering
+from color_clustering import k_means_clustering
 
 def setup_image_from_path(img_file_location, reduce=False):
     img = cv.imread(img_file_location, -1) #Read in file as is
