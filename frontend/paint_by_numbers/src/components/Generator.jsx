@@ -57,7 +57,7 @@ const Generator = forwardRef((_, ref) => {
         formData.append("numColors", numColors);
 
         try{
-            const response = await fetch("https://paintbynumbersgenerator2.onrender.com/upload_img/", {
+            const response = await fetch("https://paintbynumbersgenerator-h1lp.onrender.com/upload_img/", {
                 method: "POST",
                 body: formData,
             });
