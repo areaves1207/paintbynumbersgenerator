@@ -79,7 +79,7 @@ const Generator = forwardRef((_, ref) => {
             
         }
         catch(err){
-            console.error("UPload failed:", err);
+            console.error("Upload failed:", err);
         }
         setGenerating(false);
     };

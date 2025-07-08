@@ -74,6 +74,10 @@ async def create_upload_img(file: UploadFile = File(...), numColors: int = Form(
         "Content": "attachment; filename=processed_images.zip"
     })
 
+@app.get("/")
+async def root():
+    return {"message": "API is running"}
+
 
 @app.get("/ping")
 async def ping():
