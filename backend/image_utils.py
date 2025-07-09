@@ -34,7 +34,7 @@ def setup_image(img, force_scale=True):
 
 def setup_image_from_path(img_file_location, reduce=False): #archived function
     img = cv.imread(img_file_location, -1) #Read in file as is
-    img = cv.cvtColor(img, cv.COLOR_BGR2RGB) #swap from BGR to RGB 
+    # img = cv.cvtColor(img, cv.COLOR_BGR2RGB) #swap from BGR to RGB 
     if(reduce):
         img = cv.resize(img, (720, 480), interpolation=cv.INTER_AREA)
 
