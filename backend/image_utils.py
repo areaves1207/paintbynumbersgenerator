@@ -25,6 +25,8 @@ def setup_image(img, force_scale=True):
         else:
             print("Scaling to landscape mode")
             img = cv.resize(img, (w, h), interpolation=cv.INTER_AREA)
+    else:
+        print("Skipping scaling")
 
     # gaussian = cv.GaussianBlur(img, sigma, size)
     bilateral_blurred_img = cv.bilateralFilter(img, 7, 50, 50)
