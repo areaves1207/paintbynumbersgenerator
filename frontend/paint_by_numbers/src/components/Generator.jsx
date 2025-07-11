@@ -60,6 +60,7 @@ const Generator = forwardRef((_, ref) => {
             console.log(`Sending image to url: ${upload_url}`);
 
             const response = await fetch(upload_url, {
+
                 method: "POST",
                 body: formData,
             });
