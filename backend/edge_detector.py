@@ -46,15 +46,7 @@ def detect_edges_tight(img):
                 right = img[x, y + 1]
                 bottom = img[x + 1, y]
                 #check down and right pixels for changes
-                if not np.all(center == right) and not np.all(center == bottom):
+                if (not np.all(center == right) and not np.all(center == bottom)) or not np.all(center == right) or not np.all(center == bottom):
                     img[x, y] = [255, 255, 255]
-                    # img[x, y + 1] = [255, 255, 255]
-                    # img[x + 1, y] = [255, 255, 255]
-                elif not np.all(center == right):
-                    img[x, y] = [255, 255, 255]
-                    # img[x, y + 1] = [255, 255, 255]
-                elif not np.all(center == bottom):
-                    img[x, y] = [255, 255, 255]
-                    # img[x + 1, y] = [255, 255, 255]
                     
     return img

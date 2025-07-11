@@ -17,7 +17,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origin_regex=r"https://.*\.vercel\.app",
+    allow_origins=["https://paintbynumbersgenerator-jet.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -73,6 +73,10 @@ async def create_upload_img(file: UploadFile = File(...), numColors: int = Form(
     return StreamingResponse(zip_buffer, media_type="application/zip", headers={
         "Content": "attachment; filename=processed_images.zip"
     })
+
+@app.get("/")
+async def root():
+    return {"message": "API is running"}
 
 
 @app.get("/ping")

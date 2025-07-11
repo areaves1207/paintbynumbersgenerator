@@ -9,27 +9,33 @@ from number_drawing import draw_numbers_pil
 
 # img = setup_image_from_path(img_file_location = "backend/" + images[6], reduce=True)
 
-def paint_by_numbers_gen(img, num_colors):
-    img = setup_image(img, force_scale=True)
+def paint_by_numbers_gen(img, num_colors, force_scale = True):
+    img = setup_image(img, force_scale)
     height, width, _ = img.shape
 
     #TODO: potential issue i thought of it its possible when we add edges, those pixels are still
     # stored under their specific batches, so if we update with a fill in color option it
     # may color the edges too
+    print("k means clustering")
     clustered_img, labels, color_pallete, batches, center_of_masses = k_means_clustering(num_colors, img)
 
+    print("edge detector")
     edges = edge_detector.detect_edges_canny(clustered_img.copy())
     edges_tight = edge_detector.detect_edges_tight(clustered_img.copy())
 
+    print("Combining edges and photo")
     combined = combine_images(clustered_img.copy(), edges.copy())
     combined_tight = combine_images(clustered_img.copy(), edges_tight.copy())
 
+    print("Configuring numbers")
     numbered_image = draw_numbers_pil(combined, center_of_masses)
     numbered_image_tight = draw_numbers_pil(combined_tight, center_of_masses)
 
+    print("Creating padding, drawing pallete")
     padded_img = add_padding(numbered_image, width // 15)
     palette = generate_palette(height, color_pallete)
 
+    print("Finalizing image")
     padded_img_t = add_padding(numbered_image_tight, width // 15)
     final_image = draw_palette_onto_img(padded_img, palette)
     final_image_t = draw_palette_onto_img(padded_img_t, palette)
