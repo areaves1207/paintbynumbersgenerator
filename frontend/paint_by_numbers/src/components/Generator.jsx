@@ -86,7 +86,7 @@ const Generator = forwardRef((_, ref) => {
 
     return (
         <div className={styles.div} ref={ref}>
-            <div className={styles.infoText}>Upload an image to generate it's canvas</div>
+            <div className={styles.infoText}>Upload an image to generate its canvas</div>
 
             <input type='file' accept="image/*" className={styles.button} onChange={fileUploadHandler}></input>
 
