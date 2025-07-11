@@ -1,17 +1,14 @@
-For set up of the Conda environment, if you don't have it: 
-This is all for Windows computers.
+Hi!
+This is my first full stack project!
+Check it out at https://paintbynumbersgenerator-jet.vercel.app/
 
-See "Python Setup - Conda Package Manager and Virtual Environment.pdf"
+Current itinery to complete:
+1) Speedup the backend (remove those basic array manipulation values for np computations)
+2) Display more image info on front end
+3) Remove both resultant images (smooth and tight edges) for one, smooth edged image
+4) ???
+5) Profit
 
-If Conda still isn't recognized in Git Bash, open a fresh Git Bash and type in "bash" (without the quotes). Then try to run Conda again.
+and minor bug fixes along the way :)
 
-Changing VSCode from PS to Git Bash:
-    Open Settings (Ctrl + Shift + P and search for "Settings")
-    In the search bar, type "Terminal: Integrated: Default Profile: Windows".
-        It's most likely set to null, select Git Bash:
-        Click on the dropdown menu and select "Git Bash".
-    Restart VS Code.
-    Open a fresh terminal.
-
-For CV2:
-pip install opencv-python
+Thanks for checking this out!
