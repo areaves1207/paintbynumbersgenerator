@@ -19,12 +19,12 @@ const Popup = ({ isOpen, onClose }) => {
                 <h4>
                     This site is hosted by Vercel and the back end is hosted by Render. FastAPI is used to connect everything.
                     Since both are free hosting sites, the input and output is limited, and so the wait times for generating an
-                    image is very long and the outputs are pretty samll (800x600). 
+                    image is very long and the outputs are pretty small (640x480). 
                 </h4>
                 <h4>
-                    In all honesty too, it is not extremely optimized, which is also a reason for the wait time. I plan in the near
-                    future to work on speeding up the backend. I have implemented just about everything myself such as the
-                    custom Canny edge detector, K-Means clustering, a tight edge detector. The good news is I got my implementations
+                    In all honesty too, it is not extremely optimized, which is a partial reason for the wait time. The next major fix
+                    is to make the backend more efficient. I have implemented just about everything myself, such as the
+                    custom Canny edge detector, K-Means clustering, and a tight edge detector. The good news is I have my implementations
                     working! They just aren't optimized at the moment, unfortunately. 
                 </h4>
                 <h4>
