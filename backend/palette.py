@@ -6,7 +6,7 @@ def generate_palette(img_height, color_palette):
     box_size = img_height // (num_colors*2 + 1)
 
     #make all white strip of img height
-    palette = np.full(shape=(img_height, box_size * 3, 3), fill_value=[255,255,255], dtype=np.uint8)
+    palette = np.full(shape=(img_height, box_size * 5, 3), fill_value=[255,255,255], dtype=np.uint8)
 
     for c, color_idx in enumerate(range(0, num_colors), start=1): #loop through each color
         #y is the position of the TOP LEFT of each square
@@ -16,6 +16,8 @@ def generate_palette(img_height, color_palette):
         color = tuple(int(c) for c in color_palette[color_idx])
         cv.rectangle(img=palette, pt1=top_left_point, pt2= bottom_right_point, color=color, thickness=-1)
         cv.putText(img=palette, text=str(color_idx+1), org=(int(box_size), y + (box_size//2 + 1)), fontFace=cv.FONT_HERSHEY_SIMPLEX, fontScale=0.75, color=(0,0,0), thickness=2)
+
+    # palette = add_padding(palette, 50)
 
     return palette
 

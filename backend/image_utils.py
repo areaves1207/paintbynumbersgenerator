@@ -5,7 +5,6 @@ from color_clustering import k_means_clustering
 
 def setup_image_from_path(img_file_location, reduce=False):
     img = cv.imread(img_file_location, -1) #Read in file as is
-    img = cv.cvtColor(img, cv.COLOR_BGR2RGB) #swap from BGR to RGB 
     if(reduce):
         img = cv.resize(img, (720, 480), interpolation=cv.INTER_AREA)
 
@@ -27,16 +26,6 @@ def setup_image(img, force_scale=True):
             img = cv.resize(img, (w, h), interpolation=cv.INTER_AREA)
     else:
         print("Skipping scaling")
-
-    # gaussian = cv.GaussianBlur(img, sigma, size)
-    bilateral_blurred_img = cv.bilateralFilter(img, 7, 50, 50)
-    return bilateral_blurred_img
-
-def setup_image_from_path(img_file_location, reduce=False): #archived function
-    img = cv.imread(img_file_location, -1) #Read in file as is
-    # img = cv.cvtColor(img, cv.COLOR_BGR2RGB) #swap from BGR to RGB 
-    if(reduce):
-        img = cv.resize(img, (720, 480), interpolation=cv.INTER_AREA)
 
     # gaussian = cv.GaussianBlur(img, sigma, size)
     bilateral_blurred_img = cv.bilateralFilter(img, 7, 50, 50)
