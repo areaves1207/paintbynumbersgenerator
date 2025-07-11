@@ -21,7 +21,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header/>
+      <Header openPopup={()=> setPopupOpen(true)}/>
       <Popup isOpen={isPopupOpen} onClose={() => setPopupOpen(false)} />
       <div className={StyleSheet.body}>
         <Title onClickScroll={scrollToGenerator}/>

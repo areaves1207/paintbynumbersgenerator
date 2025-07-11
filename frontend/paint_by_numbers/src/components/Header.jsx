@@ -1,14 +1,14 @@
 import styles from './header.module.css';
 
-export default function Header(){
+export default function Header({openPopup}){
     return (
             <div className={styles.header}>
-                <div className={styles.logo}>Logo</div>
+                <div className={styles.logo} onClick={() => window.location.reload()}>Logo</div>
                 <nav className={styles.nav}>
                     <ul>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Portfolio</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li onClick={() => openPopup()}><a>About</a></li>
+                    <li><a href="https://github.com/areaves1207" target="_blank">Github</a></li>
+                    <li><a href="https://github.com/areaves1207/paintbynumbersgenerator" target="_blank">Repo</a></li>
                     </ul>
                 </nav>
             </div>
