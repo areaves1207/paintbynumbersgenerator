@@ -7,7 +7,6 @@ import { forwardRef, useState } from "react";
 const Generator = forwardRef((_, ref) => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
-    const [selectedImgSize, setSelectedImgSize] = useState("480p");
     const [numColors, setNumColors] = useState(16);
     //where the result imgs are stored
     const [imgTight, setImgTight] = useState(null);
@@ -22,10 +21,6 @@ const Generator = forwardRef((_, ref) => {
 
     const handleSlider = (event) => {
         setNumColors(event.target.value);
-    };
-
-    const handleImgSizeChange = (changeEvent) => {
-        setSelectedImgSize(changeEvent.target.value);
     };
 
     const handleCheckboxChange = (key) => {
