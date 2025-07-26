@@ -12,9 +12,7 @@ class GaussianImage:
         self.kernel = gaussian_kernel(size, sigma)
         img = cv.cvtColor(img, cv.COLOR_RGB2GRAY)
         smoothed_img = cv.filter2D(img, -1, self.kernel) #maybe we dont need this. Will smooth the img w/ gaussian b4 using dy dx... edit: helped reduce noise, duh
-        
-        # plt.imshow(img, cmap='gray')  
-        # plt.show() 
+
 
         self.img_dy, self.img_dx = generate_img_gradients(smoothed_img, size)
         self.magnitude, self.orientation = get_magnitude_and_orientation(self.img_dx, self.img_dy)
