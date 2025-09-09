@@ -10,5 +10,6 @@ Current itinery to complete:
 5) Profit
 
 and minor bug fixes along the way :)
+For the most up to date version, it's most likely under the "dev" branch.
 
 Thanks for checking this out!
