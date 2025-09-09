@@ -14,9 +14,9 @@ def k_means_clustering(k, img):
     prev_centroids = None
 
     #Assign pixels to clusters
-    print("Generating image...", end="")
+    print("Assigning clusters...")
+    start_time = time.time()
     while(True):
-        # print(".", end="", flush=True)
         clusters = assign_clusters(img, centroids, clusters)
         centroids = update_centroids(img, clusters)
         
@@ -26,19 +26,24 @@ def k_means_clustering(k, img):
                 logging.info("Minor change detected")
                 break
         prev_centroids = centroids.copy()
-    print()   
+    print("Assigning clusters completed in: %f seconds", (time.time() - start_time))   
     
     clustered_img = np.empty_like(img)    
     color_pallete = []
+
+    print("Drawing image")
+    start_time = time.time()
     for i in range(k):
         for pixel in clusters[i]:
             clustered_img[pixel[0]][pixel[1]] = centroids[i]
         color_pallete.append(centroids[i])
     # display_image(clustered_img, "Clustered image")
-    print("Image successfully generated")
+    print("Image successfully generated in %f", (time.time() - start_time))
 
     print("Generating batches...")
+    start_time = time.time()
     batches, center_of_masses = generate_batches(clustered_img, clusters, color_pallete)
+    print("Batches generated in %f seconds", (time.time() - start_time))
     
     return clustered_img, clusters, color_pallete, batches, center_of_masses
 
