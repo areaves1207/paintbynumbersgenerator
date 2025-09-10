@@ -62,11 +62,11 @@ const Generator = forwardRef((_, ref) => {
                 canvas.height = height;
                 ctx.drawImage(img, 0, 0, width, height);
 
-                var scaledFile = canvas.toDataURL(file.type);
+                canvas.toBlob(function(blob) {
+                    setSelectedFile(blob);
+                    setPreviewUrl(URL.createObjectURL(blob));
+                }, file.type);
 
-                setSelectedFile(scaledFile);
-                // setPreviewUrl(URL.createObjectURL(scaledFile));
-                setPreviewUrl(scaledFile);
             }
             img.src = e.target.result;
         }
