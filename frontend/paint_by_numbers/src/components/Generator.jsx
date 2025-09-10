@@ -34,12 +34,43 @@ const Generator = forwardRef((_, ref) => {
     const fileUploadHandler = event => {
         setGenerating(false);
         const file = event.target.files[0];
-        console.log(file);
-        if (file) {
-            setSelectedFile(file);
-            setPreviewUrl(URL.createObjectURL(file));
-        }
+        if (!file) return;
 
+
+        var reader = new FileReader();
+        reader.onload = function(e){
+            var img = document.createElement("img");
+            img.onload = function(event){
+                var canvas = document.createElement("canvas");
+                var ctx = canvas.getContext("2d");
+
+                const scaled_dim1 = 640;
+                const scaled_dim2 = 480;
+
+                let width = img.width;
+                let height = img.height;
+
+                //keep the img either landscale or portrait
+                if(width > height){ 
+                    width = scaled_dim1
+                    height = scaled_dim2
+                }else{
+                    width = scaled_dim2
+                    height = scaled_dim1
+                }
+                canvas.width = width;
+                canvas.height = height;
+                ctx.drawImage(img, 0, 0, width, height);
+
+                var scaledFile = canvas.toDataURL(file.type);
+
+                setSelectedFile(scaledFile);
+                // setPreviewUrl(URL.createObjectURL(scaledFile));
+                setPreviewUrl(scaledFile);
+            }
+            img.src = e.target.result;
+        }
+        reader.readAsDataURL(file);
     };
 
 
