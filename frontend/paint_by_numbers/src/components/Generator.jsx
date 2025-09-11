@@ -34,7 +34,10 @@ const Generator = forwardRef((_, ref) => {
     const fileUploadHandler = event => {
         setGenerating(false);
         const file = event.target.files[0];
-        if (!file) return;
+        if (!file) {
+            console.log("File failed");
+            return;
+        }
 
 
         var reader = new FileReader();
@@ -65,6 +68,7 @@ const Generator = forwardRef((_, ref) => {
                 canvas.toBlob(function(blob) {
                     setSelectedFile(blob);
                     setPreviewUrl(URL.createObjectURL(blob));
+                    console.log("Compressed photo has been blob-ed");
                 }, file.type);
 
             }
