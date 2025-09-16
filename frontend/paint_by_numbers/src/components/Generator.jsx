@@ -68,8 +68,8 @@ const Generator = forwardRef((_, ref) => {
                 canvas.toBlob(function(blob) {
                     setSelectedFile(blob);
                     setPreviewUrl(URL.createObjectURL(blob));
-                    console.log("Compressed photo has been blob-ed");
-                }, file.type);
+                    console.log("Compressed photo has been blob-ed. Size: " + blob.size);
+                }, file.type, 0.8);
 
             }
             img.src = e.target.result;
