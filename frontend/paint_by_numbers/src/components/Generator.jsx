@@ -1,4 +1,5 @@
 import SpinnerLoader from "./SpinnerLoader";
+import Info from "./Info";
 import styles from "./generator.module.css"
 import JSZip from "jszip";
 import { forwardRef, useState } from "react";
@@ -141,7 +142,11 @@ const Generator = forwardRef((_, ref) => {
                     ? 
                     (<button className={styles.generateButton} onClick={handleSubmit}>GENERATE</button> )
                     :
-                    (<div className={styles.spinner}><SpinnerLoader/></div>)
+                    (<div className={styles.spinner}>
+                        <Info 
+                            questionText={"Why so long?"}
+                            explanationText={"There are 2 primary reasons. First is that this is hosted for free on Render, which means they only allocate 0.1 CPU power to each request. It also takes about 4-7 minutes just to get the server to aknowledge the request. Secondly, as it stands there is a lot of matrix manipulation that is done without NumPy which is much slower, but it is next on the optimization list. Hopefully we can get the time down soon."}></Info><SpinnerLoader/>
+                        </div>)
                 }
 
             </div>)}
