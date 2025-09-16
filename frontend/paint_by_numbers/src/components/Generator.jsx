@@ -102,11 +102,11 @@ const Generator = forwardRef((_, ref) => {
             const smoothImg = await zip.file("final_image_smooth.png").async("blob");
             // const tightImg = await zip.file("final_image_tight.png").async("blob");
 
-            const img1Url = URL.createObjectURL(tightImg);
-            // const img2Url = URL.createObjectURL(smoothImg);
+            // const img1Url = URL.createObjectURL(tightImg);
+            const img2Url = URL.createObjectURL(smoothImg);
             
-            setImgTight(img1Url);
-            // setImgSmooth(img2Url);
+            // setImgTight(img1Url);
+            setImgSmooth(img2Url);
             
         }
         catch(err){
