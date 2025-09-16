@@ -52,17 +52,17 @@ async def create_upload_img(file: UploadFile = File(...), numColors: int = Form(
         return{"ERROR": "FAILED TO DECODE IMG"}
     
     print(f"Image {file.filename} decoded successfully")
-    result_tight, result_smooth = paint_by_numbers_gen(img_np, numColors)
+    result_smooth = paint_by_numbers_gen(img_np, numColors)
     #conv imgs to PIL    
-    result_tight = Image.fromarray(result_tight)
+    # result_tight = Image.fromarray(result_tight)
     result_smooth = Image.fromarray(result_smooth)
 
     zip_buffer = BytesIO()
     with zipfile.ZipFile(zip_buffer, "w") as zip_file:
-        img1_io = BytesIO()
-        result_tight.save(img1_io, format="PNG")
-        img1_io.seek(0)
-        zip_file.writestr("final_image_tight.png", img1_io.read())
+        # img1_io = BytesIO()
+        # result_tight.save(img1_io, format="PNG")
+        # img1_io.seek(0)
+        # zip_file.writestr("final_image_tight.png", img1_io.read())
         
         img2_io = BytesIO()
         result_smooth.save(img2_io, format="PNG")
