@@ -1,7 +1,17 @@
 .spinner{
     scale: 50%;
+    font-size: x-large;
 }
 p{
     font-size: x-large;
     margin-top: -8vh;
+}
+
+.action{
+    font-size: x-large;
+    padding-bottom: 10px;
+}
+
+.eta{
+    font-size: 1.5rem;
 }

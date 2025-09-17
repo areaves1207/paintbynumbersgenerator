@@ -16,7 +16,8 @@ export default function SpinnerLoader({action}){
                     )
                 }
             </div>
-            <p>{action}</p>
+            <div class={styles.eta}>Estimated time: 11 minutes</div>
+            <p class={styles.action}>{action}</p>
         </>
     );
 }
