@@ -16,7 +16,7 @@ export default function SpinnerLoader(action){
                     )
                 }
             </div>
-            <p>{Action}</p>
+            <p>{action}</p>
         </>
     );
 }
