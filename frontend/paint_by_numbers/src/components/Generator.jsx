@@ -145,8 +145,11 @@ const Generator = forwardRef((_, ref) => {
                     (<div className={styles.spinner}>
                         <Info 
                             questionText={"Why so long?"}
-                            explanationText={"There are 2 primary reasons. First is that this is hosted for free on Render, which means they only allocate 0.1 CPU power to each request. It also takes about 4-7 minutes just to get the server to aknowledge the request. Secondly, as it stands there is a lot of matrix manipulation that is done without NumPy which is much slower, but it is next on the optimization list. Hopefully we can get the time down soon."}></Info><SpinnerLoader/>
-                        </div>)
+                            explanationText={"There are 2 primary reasons. First is that this is hosted for free on Render, which means they only allocate 0.1 CPU power to each request. It also takes about 4-7 minutes just to get the server to aknowledge the request. Secondly, as it stands there is a lot of matrix manipulation that is done without NumPy which is much slower, but it is next on the optimization list. Hopefully we can get the time down soon."}>
+                        </Info>
+                        
+                        <SpinnerLoader action={"Generating"}/>
+                    </div>)
                 }
 
             </div>)}
