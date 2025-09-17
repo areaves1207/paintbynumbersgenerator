@@ -2,7 +2,7 @@ import styles from './spinner.module.css'
 import spinner from './gifs/spinner.gif';
 import { useState } from "react";
 
-export default function SpinnerLoader(action){
+export default function SpinnerLoader({action}){
     const [showImage, setShowImage] = useState(true);
 
     return (
