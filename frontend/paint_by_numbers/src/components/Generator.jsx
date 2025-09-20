@@ -153,7 +153,7 @@ const Generator = forwardRef((_, ref) => {
 
             </div>)}
             
-            {imgSmooth && imgTight && <div className={styles.resultImages}>
+            {imgSmooth && <div className={styles.resultImages}>
                 <figure>
                     {<img src={imgTight} className={styles.result_img} alt="tight result" />}
                     <figcaption>Tight image</figcaption>
@@ -162,9 +162,9 @@ const Generator = forwardRef((_, ref) => {
                     </a>
                 </figure>
                 <figure>
-                    {<img src={imgSmooth} className={styles.result_img} alt="smooth result" />}
-                    <figcaption>Smooth image</figcaption>
-                    <a href={imgTight} download="tight_result.png">
+                    {<img src={imgSmooth} className={styles.result_img} alt="Result" />}
+                    <figcaption>Image</figcaption>
+                    <a href={imgSmooth} download="canvas.png">
                         <button>Download Smooth Image</button>
                     </a>
                 </figure>
