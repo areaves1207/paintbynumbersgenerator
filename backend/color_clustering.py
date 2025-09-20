@@ -22,13 +22,13 @@ def k_means_clustering(k, img):
         
         if prev_centroids is not None:
             diff = np.linalg.norm(np.array(centroids) - np.array(prev_centroids))  # total Euclidean difference
-            if diff < 1e-4:
+            if diff < 1e-2:
                 logging.info("Minor change detected")
                 break
         prev_centroids = centroids.copy()
     print("Assigning clusters completed in: %f seconds", (time.time() - start_time))   
     
-    clustered_img = np.empty_like(img)    
+    clustered_img = np.empty_like(img)
     color_pallete = []
 
     print("Drawing image")
@@ -75,15 +75,19 @@ def assign_clusters(img, centroids, clusters):
 
 #For each cluster, find avg and return new center
 def update_centroids(img, clusters):
+    img = img.astype(np.float32)
+
     new_centroids = []
     for cluster in clusters:
-        sum_vector = np.zeros(3, dtype=np.float32)
-        for pixel in cluster:
-            x=pixel[0]
-            y=pixel[1]
-            sum_vector += img[x][y].astype(np.float32)
+        if len(cluster) == 0: #just make sure the cluster exists. it should, but just to double check
+            new_centroids.append(np.zeros(3, dtype=np.uint8))
+            continue
 
-        mean = (sum_vector / len(cluster)).astype(np.uint8)
+
+        coords_in_cluster = np.asarray(cluster) #grab all the coords in one array ( (x1,y1), (x2,y2),...)
+        pixels_array = img[coords_in_cluster[:,0], coords_in_cluster[:,1]] #arrange the pixel val at those coords
+        mean = pixels_array.mean(axis=0).astype(np.uint8) #take mean, easy
+
         new_centroids.append(mean)
 
     return new_centroids
