@@ -14,13 +14,10 @@ def paint_by_numbers_gen(img, num_colors, force_scale = True):
     img = setup_image(img, force_scale)
     height, width, _ = img.shape
 
-    #TODO: potential issue i thought of it its possible when we add edges, those pixels are still
-    # stored under their specific batches, so if we update with a fill in color option it
-    # may color the edges too
     print("k means clustering")
     start_time = time.time()
     clustered_img, labels, color_pallete, batches, center_of_masses = k_means_clustering(num_colors, img)
-    print("K-means clustering finished in: %f seconds", (time.time() - start_time) )
+    print("K-means clustering finished in: %f seconds", (time.time() - start_time) ) #currently runs in ~140s
 
     print("edge detector")
     start_time = time.time()

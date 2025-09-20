@@ -133,7 +133,7 @@ const Generator = forwardRef((_, ref) => {
                 {selectedFile != null &&
                     (<label className={styles.numColors}>
                         Number of Colors: 
-                        <input type="range" min="4" max="64" value={numColors} onChange={handleSlider} />
+                        <input type="range" min="4" max="16" value={numColors} onChange={handleSlider} />
                         {numColors}
                     </label>)
                 }
@@ -154,18 +154,18 @@ const Generator = forwardRef((_, ref) => {
             </div>)}
             
             {imgSmooth && <div className={styles.resultImages}>
-                <figure>
+                {/* <figure>
                     {<img src={imgTight} className={styles.result_img} alt="tight result" />}
                     <figcaption>Tight image</figcaption>
                     <a href={imgTight} download="tight_result.png">
                         <button>Download Tight Image</button>
                     </a>
-                </figure>
+                </figure> */}
                 <figure>
                     {<img src={imgSmooth} className={styles.result_img} alt="Result" />}
-                    <figcaption>Image</figcaption>
+                    <figcaption>Canvas</figcaption>
                     <a href={imgSmooth} download="canvas.png">
-                        <button>Download Smooth Image</button>
+                        <button>Download Canvas</button>
                     </a>
                 </figure>
             </div>}

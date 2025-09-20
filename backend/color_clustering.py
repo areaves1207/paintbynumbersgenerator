@@ -33,12 +33,12 @@ def k_means_clustering(k, img):
 
     print("Drawing image")
     start_time = time.time()
-    for i in range(k):
-        for pixel in clusters[i]:
-            clustered_img[pixel[0]][pixel[1]] = centroids[i]
+    for i in range(k): #update each pixel to be its specified color
+        coords = np.array(clusters[i], dtype=np.int32)
+        clustered_img[coords[:,0], coords[:,1]] = centroids[i]
         color_pallete.append(centroids[i])
     # display_image(clustered_img, "Clustered image")
-    print("Image successfully generated in %f", (time.time() - start_time))
+    print("Image successfully updated in %f", (time.time() - start_time))
 
     print("Generating batches...")
     start_time = time.time()
@@ -82,7 +82,6 @@ def update_centroids(img, clusters):
         if len(cluster) == 0: #just make sure the cluster exists. it should, but just to double check
             new_centroids.append(np.zeros(3, dtype=np.uint8))
             continue
-
 
         coords_in_cluster = np.asarray(cluster) #grab all the coords in one array ( (x1,y1), (x2,y2),...)
         pixels_array = img[coords_in_cluster[:,0], coords_in_cluster[:,1]] #arrange the pixel val at those coords
