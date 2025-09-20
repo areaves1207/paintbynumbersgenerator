@@ -16,9 +16,14 @@ def k_means_clustering(k, img):
     #Assign pixels to clusters
     print("Assigning clusters...")
     start_time = time.time()
+    counter = 0 #temp to test timing stuff
+    t_ac, t_uc = 0 #also temp
     while(True):
-        clusters = assign_clusters(img, centroids, clusters)
-        centroids = update_centroids(img, clusters)
+        counter += 1
+        clusters, t_ac_t = assign_clusters(img, centroids, clusters)
+        centroids, t_uc_t = update_centroids(img, clusters)
+        t_ac += t_ac_t
+        t_uc += t_uc_t #temp stuff pls delete later bro
         
         if prev_centroids is not None:
             diff = np.linalg.norm(np.array(centroids) - np.array(prev_centroids))  # total Euclidean difference
@@ -26,13 +31,16 @@ def k_means_clustering(k, img):
                 logging.info("Minor change detected")
                 break
         prev_centroids = centroids.copy()
-    print("Assigning clusters completed in: %f seconds", (time.time() - start_time))   
+
+    print("Assigning clusters completed in: ", (t_ac / counter))  
+    print("Updating clusters completed in: ", (t_uc / counter))  
+    #total time taken 9/20: 140s  
     
     clustered_img = np.empty_like(img)
     color_pallete = []
 
     print("Drawing image")
-    start_time = time.time()
+    start_time = time.time() 
     for i in range(k): #update each pixel to be its specified color
         coords = np.array(clusters[i], dtype=np.int32)
         clustered_img[coords[:,0], coords[:,1]] = centroids[i]
@@ -43,7 +51,7 @@ def k_means_clustering(k, img):
     print("Generating batches...")
     start_time = time.time()
     batches, center_of_masses = generate_batches(clustered_img, clusters, color_pallete)
-    print("Batches generated in %f seconds", (time.time() - start_time))
+    print("Batches generated in %f seconds", (time.time() - start_time)) #Time taken 9/20: 70s
     
     return clustered_img, clusters, color_pallete, batches, center_of_masses
 
@@ -69,12 +77,12 @@ def assign_clusters(img, centroids, clusters):
         clusters[cluster_idx].append((x, y))
 
     end_time_ac = time.time()
-    logging.info(f"Execution time of ASSIGNCLUSTERS: {end_time_ac - start_time_ac:.4f} seconds")
-    return clusters
+    return clusters, (end_time_ac - start_time_ac)
 
 
 #For each cluster, find avg and return new center
 def update_centroids(img, clusters):
+    start_time_uc = time.time()
     img = img.astype(np.float32)
 
     new_centroids = []
@@ -89,7 +97,8 @@ def update_centroids(img, clusters):
 
         new_centroids.append(mean)
 
-    return new_centroids
+    end_time_uc = time.time()
+    return new_centroids, (end_time_uc - start_time_uc)
 
 
 #generates k random center points that lie within the RGB space + k empty clusters    
