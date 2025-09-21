@@ -8,7 +8,7 @@ import { forwardRef, useState } from "react";
 const Generator = forwardRef((_, ref) => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
-    const [numColors, setNumColors] = useState(16);
+    const [numColors, setNumColors] = useState(8);
     //where the result imgs are stored
     const [imgTight, setImgTight] = useState(null);
     const [imgSmooth, setImgSmooth] = useState(null);
