@@ -39,14 +39,12 @@ def k_means_clustering(k, img):
     clustered_img = np.empty_like(img)
     color_pallete = []
 
-    print("Drawing image")
     start_time = time.time() 
     for i in range(k): #update each pixel to be its specified color
         coords = np.array(clusters[i], dtype=np.int32)
         clustered_img[coords[:,0], coords[:,1]] = centroids[i]
         color_pallete.append(centroids[i])
     # display_image(clustered_img, "Clustered image")
-    print("Image successfully updated in %f", (time.time() - start_time))
 
     print("Generating batches...")
     start_time = time.time()
