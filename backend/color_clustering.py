@@ -17,7 +17,7 @@ def k_means_clustering(k, img):
     print("Assigning clusters...")
     start_time = time.time()
     counter = 0 #temp to test timing stuff
-    t_ac, t_uc = 0 #also temp
+    t_ac = t_uc = 0 #also temp
     while(True):
         counter += 1
         clusters, t_ac_t = assign_clusters(img, centroids, clusters)
