@@ -2,7 +2,7 @@ import json
 import cv2 as cv
 import numpy as np
 from fastapi import FastAPI, Form, UploadFile, File # type: ignore
-from fastapi.responses import StreamingResponse # type: ignore
+from fastapi.responses import StreamingResponse, Response # type: ignore
 from PIL import Image
 import io
 import base64
@@ -53,6 +53,8 @@ async def create_upload_img(file: UploadFile = File(...), numColors: int = Form(
     
     print(f"Image {file.filename} decoded successfully")
     result_smooth = paint_by_numbers_gen(img_np, numColors)
+    if(result_smooth is None):
+        return Response(status_code=204)
     #conv imgs to PIL    
     # result_tight = Image.fromarray(result_tight)
     result_smooth = Image.fromarray(result_smooth)

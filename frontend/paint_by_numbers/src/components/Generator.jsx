@@ -1,5 +1,5 @@
 import SpinnerLoader from "./SpinnerLoader";
-import Info from "./Info";
+import X_img from './images/x_error.jpg';
 import styles from "./generator.module.css"
 import JSZip from "jszip";
 import { forwardRef, useState } from "react";
@@ -13,6 +13,7 @@ const Generator = forwardRef((_, ref) => {
     const [imgTight, setImgTight] = useState(null);
     const [imgSmooth, setImgSmooth] = useState(null);
     const [generating, setGenerating] = useState(false);
+    const [failure, setFailure] = useState(false);
 
 
     const [checkboxes, setChecked] = useState({
@@ -83,6 +84,7 @@ const Generator = forwardRef((_, ref) => {
     const handleSubmit = async() =>{
         setImgTight(null); setImgSmooth(null);
         setGenerating(true);
+        setFailure(false);
         const formData = new FormData();
         formData.append("file", selectedFile);
         formData.append("numColors", numColors);
@@ -98,6 +100,9 @@ const Generator = forwardRef((_, ref) => {
 
 
             const blob = await response.blob();
+            if(response.status === 204){
+                setFailure(true);
+            }
             const zip = await JSZip.loadAsync(blob);
 
             const smoothImg = await zip.file("final_image_smooth.png").async("blob");
@@ -149,6 +154,13 @@ const Generator = forwardRef((_, ref) => {
                             explanationText={"There are 2 primary reasons. First is that this is hosted for free on Render, which means they only allocate 0.1 CPU power to each request. It takes about 4-7 minutes just to get the server to aknowledge a request. Secondly, as it stands there is a lot of matrix manipulation that is done without NumPy which is much slower, but it is next on the optimization list. Hopefully we can get the time down soon. It works, it's just unfortunately very slow..."}>
                         </Info> */}
                     </div>)
+                }
+
+                {failure && 
+                    <div className={styles.fail}>
+                        <img src={X_img}></img>
+                        <p>Error. Failed to generate.</p>
+                    </div>
                 }
 
             </div>)}
