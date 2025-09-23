@@ -1,4 +1,4 @@
-import { useRef, useState} from "react";
+import { useEffect, useRef, useState} from "react";
 import PaintByNumbers from "./components/PaintByNumbers"
 import Header from "./components/Header"
 import './App.css';
@@ -12,17 +12,32 @@ import Popup from "./components/Popup";
 
 function App() {
   const generatorRef = useRef(null);
-  const [isPopupOpen, setPopupOpen] = useState(true);
+  const [isPopupOpen, setPopupOpen] = useState(false);
 
   const scrollToGenerator = () => {
     generatorRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  useEffect(()=>{ //if we have visited the site before, and then closed the about page, dont open it on refresh.
+    const visitedBefore = localStorage.getItem("popupClosed");
+    if(visitedBefore === "true"){
+      setPopupOpen(false);
+    }else{
+      setPopupOpen(true);
+    }
+  })
+
+  const closePopup = () =>{
+    setPopupOpen(false)
+    localStorage.setItem("popupClosed", "true")
+  }
+
 
   return (
     <div className="App">
       <Header openPopup={()=> setPopupOpen(true)}/>
-      <Popup isOpen={isPopupOpen} onClose={() => setPopupOpen(false)}>
+
+      {isPopupOpen && <Popup isOpen={isPopupOpen} onClose={() => closePopup()}>
         <h1>Welcome to my Paint By Numbers Generator!</h1>
 
         <h3>
@@ -49,7 +64,8 @@ function App() {
         <h4>
           Thank you for checking it out though! It's been a fun project to work on, and my first ever full stack development!
         </h4>
-      </Popup>
+      </Popup>}
+
       <div className={StyleSheet.body}>
         <Title onClickScroll={scrollToGenerator}/>
         <Gallery/>
