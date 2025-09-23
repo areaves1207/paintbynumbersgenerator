@@ -71,7 +71,7 @@ const Generator = forwardRef((_, ref) => {
                     setSelectedFile(blob);
                     setPreviewUrl(URL.createObjectURL(blob));
                     console.log("Compressed photo has been blob-ed. Size: " + blob.size);
-                }, file.type, 0.8);
+                }, 'image/jpeg', 0.75);
 
             }
             img.src = e.target.result;
