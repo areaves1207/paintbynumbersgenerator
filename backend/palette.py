@@ -10,7 +10,7 @@ def generate_palette(img_height, color_palette):
 
     for c, color_idx in enumerate(range(0, num_colors), start=1): #loop through each color
         #y is the position of the TOP LEFT of each square
-        y = c*box_size*2
+        y = c*box_size*2 - box_size
         top_left_point = (0, y)
         bottom_right_point = (box_size, y + box_size)
         color = tuple(int(c) for c in color_palette[color_idx])
