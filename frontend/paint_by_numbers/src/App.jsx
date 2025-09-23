@@ -25,7 +25,7 @@ function App() {
     }else{
       setPopupOpen(true);
     }
-  })
+  }, [])
 
   const closePopup = () =>{
     setPopupOpen(false)
