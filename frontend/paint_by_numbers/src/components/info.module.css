@@ -1,0 +1,17 @@
+.question{
+    size: 30em;
+}
+
+.button{
+    padding-left: 1%;
+    font-size: xx-small;
+}
+
+.button:hover{
+    cursor: pointer;
+}
+
+.entireQ{
+    justify-content: center;
+    display: flex;
+}

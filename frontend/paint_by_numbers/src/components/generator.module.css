@@ -96,3 +96,11 @@ input[type="checkbox"] {
 .spinner{
     padding-bottom: 5vh;
 }
+
+.fail{
+    text-align: center;
+}
+
+.fail_img{
+    margin-bottom: 2vh;
+}
