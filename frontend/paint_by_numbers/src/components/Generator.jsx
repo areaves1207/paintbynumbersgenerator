@@ -158,7 +158,7 @@ const Generator = forwardRef((_, ref) => {
 
                 {failure && 
                     <div className={styles.fail}>
-                        <img src={X_img}></img>
+                        <img className={styles.fail_img} src={X_img}></img>
                         <p>Error. Failed to generate.</p>
                     </div>
                 }

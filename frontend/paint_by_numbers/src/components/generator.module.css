@@ -100,3 +100,7 @@ input[type="checkbox"] {
 .fail{
     text-align: center;
 }
+
+.fail_img{
+    margin-bottom: 2vh;
+}
