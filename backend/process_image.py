@@ -17,7 +17,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://paintbynumbersgenerator-jet.vercel.app"],
+    allow_origins=["https://pbn-gen.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
