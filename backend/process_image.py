@@ -12,7 +12,6 @@ from fastapi.middleware.cors import CORSMiddleware # type: ignore
 from paint_by_numbers import paint_by_numbers_gen
 
 
-
 app = FastAPI()
 
 app.add_middleware(

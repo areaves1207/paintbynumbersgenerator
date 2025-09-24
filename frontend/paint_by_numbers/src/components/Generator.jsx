@@ -79,7 +79,6 @@ const Generator = forwardRef((_, ref) => {
         reader.readAsDataURL(file);
     };
 
-
     // when the GENERATE button is clicked
     const handleSubmit = async() =>{
         setImgTight(null); setImgSmooth(null);
@@ -88,7 +87,7 @@ const Generator = forwardRef((_, ref) => {
         const formData = new FormData();
         formData.append("file", selectedFile);
         formData.append("numColors", numColors);
-        const upload_url = "https://pbn-gen.onrender.com/upload_img/"
+        const upload_url = "https://pbn-gen.onrender.com/upload_img/" 
         try{
             console.log(`Sending image to url: ${upload_url}`);
 
