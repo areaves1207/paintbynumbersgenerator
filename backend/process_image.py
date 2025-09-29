@@ -52,24 +52,30 @@ async def create_upload_img(file: UploadFile = File(...), numColors: int = Form(
         return{"ERROR": "FAILED TO DECODE IMG"}
     
     print(f"Image {file.filename} decoded successfully")
-    result_smooth = paint_by_numbers_gen(img_np, numColors)
-    if(result_smooth is None):
+    combined_img, canvas, palette = paint_by_numbers_gen(img_np, numColors)
+    if(combined_img is None):
         return Response(status_code=204)
     #conv imgs to PIL    
-    # result_tight = Image.fromarray(result_tight)
-    result_smooth = Image.fromarray(result_smooth)
+    combined_img = Image.fromarray(combined_img)
+    canvas = Image.fromarray(canvas)
+    palette = Image.fromarray(palette)
 
     zip_buffer = BytesIO()
     with zipfile.ZipFile(zip_buffer, "w") as zip_file:
-        # img1_io = BytesIO()
-        # result_tight.save(img1_io, format="PNG")
-        # img1_io.seek(0)
-        # zip_file.writestr("final_image_tight.png", img1_io.read())
+        combined_img_io = BytesIO()
+        combined_img.save(combined_img_io, format="PNG")
+        combined_img_io.seek(0)
+        zip_file.writestr("combined_img.png", combined_img_io.read())
         
-        img2_io = BytesIO()
-        result_smooth.save(img2_io, format="PNG")
-        img2_io.seek(0)
-        zip_file.writestr("final_image_smooth.png", img2_io.read())
+        canvas_io = BytesIO()
+        canvas.save(canvas_io, format="PNG")
+        canvas_io.seek(0)
+        zip_file.writestr("canvas.png", canvas_io.read())
+        
+        palette_io = BytesIO()
+        palette.save(palette_io, format="PNG")
+        palette_io.seek(0)
+        zip_file.writestr("palette.png", palette_io.read())
     
     zip_buffer.seek(0)
     return StreamingResponse(zip_buffer, media_type="application/zip", headers={
