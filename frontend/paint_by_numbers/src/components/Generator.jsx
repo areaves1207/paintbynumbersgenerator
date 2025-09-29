@@ -120,7 +120,7 @@ const Generator = forwardRef((_, ref) => {
             
         }
         catch(err){
-            console.error("Upload failed:", err);
+            console.error("Upload failed; ", err);
         }
         setGenerating(false);
     };
@@ -153,10 +153,6 @@ const Generator = forwardRef((_, ref) => {
                     :
                     (<div className={styles.spinner}>
                         <SpinnerLoader action={"Generating..."}/>
-                        {/* <Info 
-                            questionText={"Why so long?"}
-                            explanationText={"There are 2 primary reasons. First is that this is hosted for free on Render, which means they only allocate 0.1 CPU power to each request. It takes about 4-7 minutes just to get the server to aknowledge a request. Secondly, as it stands there is a lot of matrix manipulation that is done without NumPy which is much slower, but it is next on the optimization list. Hopefully we can get the time down soon. It works, it's just unfortunately very slow..."}>
-                        </Info> */}
                     </div>)
                 }
 
@@ -169,21 +165,25 @@ const Generator = forwardRef((_, ref) => {
 
             </div>)}
             
-            {combinedImg && <div className={styles.resultImages}>
-                {/* <figure>
-                    {<img src={imgTight} className={styles.result_img} alt="tight result" />}
-                    <figcaption>Tight image</figcaption>
-                    <a href={imgTight} download="tight_result.png">
-                        <button>Download Tight Image</button>
-                    </a>
-                </figure> */}
+            {combinedImg && canvas && palette && <div className={styles.resultImages}>
                 <figure>
-                    {<img src={combinedImg} className={styles.result_img} alt="Result" />}
+                    {<img src={combinedImg} className={styles.result_img} alt="Combined Image" />}
+                    <figcaption>Combined Image</figcaption>
+                    <a href={combinedImg} download="combined_image.png">
+                        <button>Download Entire Image</button>
+                    </a>
+
                     <figcaption>Canvas</figcaption>
-                    <a href={combinedImg} download="canvas.png">
+                    <a href={canvas} download="canvas.png">
                         <button>Download Canvas</button>
                     </a>
+
+                    <figcaption>Palette</figcaption>
+                    <a href={palette} download="palette.png">
+                        <button>Download Color Palette</button>
+                    </a>
                 </figure>
+
             </div>}
 
         </div>
