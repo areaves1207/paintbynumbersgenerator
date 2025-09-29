@@ -169,19 +169,21 @@ const Generator = forwardRef((_, ref) => {
                 <figure>
                     {<img src={combinedImg} className={styles.result_img} alt="Combined Image" />}
                     <figcaption>Combined Image</figcaption>
-                    <a href={combinedImg} download="combined_image.png">
-                        <button>Download Entire Image</button>
-                    </a>
+                    <div className={styles.download_buttons}>
+                        <a href={combinedImg} download="combined_image.png">
+                            <button>Download Entire Image</button>
+                        </a>
 
-                    <figcaption>Canvas</figcaption>
-                    <a href={canvas} download="canvas.png">
-                        <button>Download Canvas</button>
-                    </a>
+                        <figcaption>Canvas</figcaption>
+                        <a href={canvas} download="canvas.png">
+                            <button>Download Canvas</button>
+                        </a>
 
-                    <figcaption>Palette</figcaption>
-                    <a href={palette} download="palette.png">
-                        <button>Download Color Palette</button>
-                    </a>
+                        <figcaption>Palette</figcaption>
+                        <a href={palette} download="palette.png">
+                            <button>Download Color Palette</button>
+                        </a>
+                    </div>
                 </figure>
 
             </div>}
