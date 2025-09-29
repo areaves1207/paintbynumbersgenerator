@@ -52,7 +52,7 @@ async def create_upload_img(file: UploadFile = File(...), numColors: int = Form(
     
     print(f"Image {file.filename} decoded successfully")
     combined_img, canvas, palette = paint_by_numbers_gen(img_np, numColors)
-    if(combined_img is None):
+    if(combined_img is None or canvas is None or palette is None):
         return Response(status_code=204)
     #conv imgs to PIL    
     combined_img = Image.fromarray(combined_img)
@@ -77,6 +77,7 @@ async def create_upload_img(file: UploadFile = File(...), numColors: int = Form(
         zip_file.writestr("palette.png", palette_io.read())
     
     zip_buffer.seek(0)
+    print("Images zipped")
     return StreamingResponse(zip_buffer, media_type="application/zip", headers={
         "Content": "attachment; filename=processed_images.zip"
     })
