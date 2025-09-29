@@ -86,7 +86,9 @@ input[type="checkbox"] {
 }
 
 .download_buttons{
+    display: flex;
     justify-content: center;
+    gap: 1rem;
 }
 
 .result_img{
