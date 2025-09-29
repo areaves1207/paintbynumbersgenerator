@@ -85,6 +85,10 @@ input[type="checkbox"] {
     gap: 5vh;
 }
 
+.download_buttons{
+    justify-content: center;
+}
+
 .result_img{
     border-style: solid;
     border-width: 2px;
