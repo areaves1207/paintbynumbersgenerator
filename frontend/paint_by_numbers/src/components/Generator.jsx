@@ -83,7 +83,7 @@ const Generator = forwardRef((_, ref) => {
 
     // when the GENERATE button is clicked
     const handleSubmit = async() =>{
-        setImgTight(null); combinedImg(null);
+        setCanvas(null); setCombinedImg(null); setPalette(null);
         setGenerating(true);
         setFailure(false);
         const formData = new FormData();
