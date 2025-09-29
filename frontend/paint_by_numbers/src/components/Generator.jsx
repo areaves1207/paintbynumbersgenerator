@@ -10,8 +10,9 @@ const Generator = forwardRef((_, ref) => {
     const [previewUrl, setPreviewUrl] = useState(null);
     const [numColors, setNumColors] = useState(8);
     //where the result imgs are stored
-    const [imgTight, setImgTight] = useState(null);
-    const [imgSmooth, setImgSmooth] = useState(null);
+    const [combinedImg, setCombinedImg] = useState(null);
+    const [canvas, setCanvas] = useState(null);
+    const [palette, setPalette] = useState(null);
     const [generating, setGenerating] = useState(false);
     const [failure, setFailure] = useState(false);
 
@@ -81,7 +82,7 @@ const Generator = forwardRef((_, ref) => {
 
     // when the GENERATE button is clicked
     const handleSubmit = async() =>{
-        setImgTight(null); setImgSmooth(null);
+        setImgTight(null); combinedImg(null);
         setGenerating(true);
         setFailure(false);
         const formData = new FormData();
@@ -104,14 +105,17 @@ const Generator = forwardRef((_, ref) => {
             }
             const zip = await JSZip.loadAsync(blob);
 
-            const smoothImg = await zip.file("final_image_smooth.png").async("blob");
-            // const tightImg = await zip.file("final_image_tight.png").async("blob");
+            const combinedImgZip = await zip.file("combined_img.png").async("blob");
+            const canvasZip = await zip.file("canvas.png").async("blob");
+            const paletteZip = await zip.file("palette.png").async("blob");
 
-            // const img1Url = URL.createObjectURL(tightImg);
-            const img2Url = URL.createObjectURL(smoothImg);
+            const combinedImgURL = URL.createObjectURL(combinedImgZip);
+            const canvasURL = URL.createObjectURL(canvasZip);
+            const paletteURL = URL.createObjectURL(paletteZip);
             
-            // setImgTight(img1Url);
-            setImgSmooth(img2Url);
+            setCombinedImg(combinedImgURL);
+            setCanvas(canvasURL);
+            setPalette(paletteURL);
             
         }
         catch(err){
@@ -164,7 +168,7 @@ const Generator = forwardRef((_, ref) => {
 
             </div>)}
             
-            {imgSmooth && <div className={styles.resultImages}>
+            {combinedImg && <div className={styles.resultImages}>
                 {/* <figure>
                     {<img src={imgTight} className={styles.result_img} alt="tight result" />}
                     <figcaption>Tight image</figcaption>
@@ -173,9 +177,9 @@ const Generator = forwardRef((_, ref) => {
                     </a>
                 </figure> */}
                 <figure>
-                    {<img src={imgSmooth} className={styles.result_img} alt="Result" />}
+                    {<img src={combinedImg} className={styles.result_img} alt="Result" />}
                     <figcaption>Canvas</figcaption>
-                    <a href={imgSmooth} download="canvas.png">
+                    <a href={combinedImg} download="canvas.png">
                         <button>Download Canvas</button>
                     </a>
                 </figure>
