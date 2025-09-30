@@ -121,12 +121,7 @@ const Generator = forwardRef((_, ref) => {
             setCombinedImg(combinedImgURL);
             setCanvas(canvasURL);
             setPalette(paletteURL);
-            setColoredImg(coloredImgURL);
-
-            if(combinedImg == null || combinedImg == null || palette == null || coloredImg == null){
-                console.error("Some image is null...");
-            }
-            
+            setColoredImg(coloredImgURL);            
         }
         catch(err){
             console.error("Upload failed; ", err);

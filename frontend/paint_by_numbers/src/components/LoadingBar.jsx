@@ -8,7 +8,7 @@ function LoadingBar() {
 
   useEffect(() => {
     const maxProgress = 95;
-    const delay = isUploading ? 650 : 1995
+    const delay = isUploading ? 50 : 195
 
     const startTime = Date.now();
     const duration = 10000;
@@ -36,7 +36,7 @@ function LoadingBar() {
   return (
     <>
       {!isMaxTime && (isUploading ? <div>Sending to backend...</div> : <div>Processing</div>)}
-      {isMaxTime && <div>Finalizing image. This may take a minute...</div>}
+      {isMaxTime && <div>Finalizing. This may take a minute...</div>}
       <div className={styles.progressBarContainer}>
         <div
           className={isUploading ? styles.progressBarFiller : `${styles.progressBarFiller} ${styles.processing}`}
