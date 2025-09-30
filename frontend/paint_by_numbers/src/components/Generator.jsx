@@ -121,6 +121,10 @@ const Generator = forwardRef((_, ref) => {
             setCanvas(canvasURL);
             setPalette(paletteURL);
             setColoredImg(coloredImgURL);
+
+            if(combinedImg == null || combinedImg == null || palette == null || coloredImg == null){
+                console.error("Some image is null...");
+            }
             
         }
         catch(err){
@@ -169,7 +173,7 @@ const Generator = forwardRef((_, ref) => {
 
             </div>)}
             
-            {combinedImg && canvas && palette && coloredImgURL && <div className={styles.resultImages}>
+            {combinedImg && canvas && palette && coloredImg && <div className={styles.resultImages}>
                 <figure>
                     {<img src={coloredImg} className={styles.result_img} alt="Colored Image" />}
                     {<img src={combinedImg} className={styles.result_img} alt="Combined Image" />}
