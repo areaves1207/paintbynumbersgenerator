@@ -3,7 +3,7 @@ import styles from './header.module.css';
 export default function Header({openPopup}){
     return (
             <div className={styles.header}>
-                <div className={styles.logo} onClick={() => window.location.reload()}>Logo</div>
+                <div className={styles.logo} onClick={() => window.location.reload()}>PBN</div>
                 <nav className={styles.nav}>
                     <ul>
                     <li onClick={() => openPopup()}><a>About</a></li>
