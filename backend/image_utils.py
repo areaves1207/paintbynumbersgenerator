@@ -55,12 +55,15 @@ def display_image(img, title="figure"):
     plt.axis('off')      
     plt.show() 
     
-def desaturate(img, saturation_scale = 0.5):
+def desaturate(img, saturation_scale = 0.05):
     hsv_img = cv.cvtColor(img, cv.COLOR_BGR2HSV)
     h, s, v = cv.split(hsv_img)
     
     s = cv.multiply(s, saturation_scale).astype(np.uint8)
-    
+    # v = np.maximum(v, 130) #remove dark spots
+    v = cv.add(v, 160)
+    v = np.clip(v, 0, 255)
+
     new_hsv = cv.merge([h, s, v])
     desat_img = cv.cvtColor(new_hsv, cv.COLOR_HSV2BGR)
     return desat_img
