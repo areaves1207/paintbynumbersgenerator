@@ -4,43 +4,40 @@ import styles from './loadingbar.module.css'
 function LoadingBar() {
   const [progressValue, setProgressValue] = useState(0);
   const [isUploading, setUploading] = useState(true);
+  const [isMaxTime, setIsMaxTime] = useState(false);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setProgressValue(prevProgress => {
-        if(isUploading){
-            if (prevProgress >= 100) {
-                clearInterval(interval);
-                prevProgress = 0;
-                setUploading(false);
-                return 0;
-            }
-            return prevProgress + 1;
-        }else{
-            if (prevProgress >= 95) {
-                    clearInterval(interval);
-                    prevProgress = 95;
-                    return prevProgress;
-                }
-            
-            return prevProgress + 1;  
-        }
+    const maxProgress = 95;
+    const delay = isUploading ? 450 : 1995
 
+    const interval = setInterval(() => {
+      setProgressValue(prev => {
+        if (prev >= maxProgress) {
+          if (isUploading){
+            setUploading(false);
+            prev = 0;
+          }else{
+            setIsMaxTime(true);
+          }
+          return prev;
+        }
+        return prev + 1;
       });
-    }, 3500);
+    }, delay);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [isUploading]);
 
   return (
     <>
-    <div>Sending to backend...</div>
-    <div className={styles.progressBarContainer}>
-      <div
-        className={isUploading ? styles.progressBarFiller : styles.progressBarFiller.processing}
-        style={{ width: `${progressValue}%` }}
-      ></div>
-    </div>
+      {!isMaxTime && (isUploading ? <div>Sending to backend...</div> : <div>Processing</div>)}
+      {isMaxTime && <div>Finalizing image. This may take a minute...</div>}
+      <div className={styles.progressBarContainer}>
+        <div
+          className={isUploading ? styles.progressBarFiller : `${styles.progressBarFiller} ${styles.processing}`}
+          style={{ width: `${progressValue}%` }}
+        ></div>
+      </div>
     </>
   );
 }
