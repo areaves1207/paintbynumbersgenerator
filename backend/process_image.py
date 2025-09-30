@@ -51,13 +51,14 @@ async def create_upload_img(file: UploadFile = File(...), numColors: int = Form(
         return{"ERROR": "FAILED TO DECODE IMG"}
     
     print(f"Image {file.filename} decoded successfully")
-    combined_img, canvas, palette = paint_by_numbers_gen(img_np, numColors)
+    colored_img, combined_img, canvas, palette = paint_by_numbers_gen(img_np, numColors)
     if(combined_img is None or canvas is None or palette is None):
         return Response(status_code=204)
     #conv imgs to PIL    
     combined_img = Image.fromarray(combined_img)
     canvas = Image.fromarray(canvas)
     palette = Image.fromarray(palette)
+    colored_img = Image.fromarray(colored_img)
 
     zip_buffer = BytesIO()
     with zipfile.ZipFile(zip_buffer, "w") as zip_file:
@@ -75,6 +76,11 @@ async def create_upload_img(file: UploadFile = File(...), numColors: int = Form(
         palette.save(palette_io, format="PNG")
         palette_io.seek(0)
         zip_file.writestr("palette.png", palette_io.read())
+        
+        colored_img_io = BytesIO()
+        colored_img.save(colored_img_io, format="PNG")
+        colored_img_io.seek(0)
+        zip_file.writestr("colored_img.png", colored_img_io.read())
     
     zip_buffer.seek(0)
     print("Images zipped")
