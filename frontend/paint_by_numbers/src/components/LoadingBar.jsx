@@ -8,7 +8,7 @@ function LoadingBar() {
 
   useEffect(() => {
     const maxProgress = 95;
-    const delay = isUploading ? 450 : 1995
+    const delay = isUploading ? 650 : 1995
 
     const startTime = Date.now();
     const duration = 10000;
