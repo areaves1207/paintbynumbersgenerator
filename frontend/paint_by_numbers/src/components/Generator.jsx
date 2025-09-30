@@ -11,6 +11,7 @@ const Generator = forwardRef((_, ref) => {
     const [numColors, setNumColors] = useState(8);
     //where the result imgs are stored
     const [combinedImg, setCombinedImg] = useState(null);
+    const [coloredImg, setColoredImg] = useState(null);
     const [canvas, setCanvas] = useState(null);
     const [palette, setPalette] = useState(null);
     const [generating, setGenerating] = useState(false);
@@ -82,7 +83,7 @@ const Generator = forwardRef((_, ref) => {
 
     // when the GENERATE button is clicked
     const handleSubmit = async() =>{
-        setCanvas(null); setCombinedImg(null); setPalette(null);
+        setCanvas(null); setCombinedImg(null); setPalette(null); setColoredImg(null);
         setGenerating(true);
         setFailure(false);
         const formData = new FormData();
@@ -108,14 +109,17 @@ const Generator = forwardRef((_, ref) => {
             const combinedImgZip = await zip.file("combined_img.png").async("blob");
             const canvasZip = await zip.file("canvas.png").async("blob");
             const paletteZip = await zip.file("palette.png").async("blob");
+            const coloredImgZip = await zip.file("colored_img.png").async("blob");
 
             const combinedImgURL = URL.createObjectURL(combinedImgZip);
             const canvasURL = URL.createObjectURL(canvasZip);
             const paletteURL = URL.createObjectURL(paletteZip);
+            const coloredImgURL = URL.createObjectURL(coloredImgZip);
             
             setCombinedImg(combinedImgURL);
             setCanvas(canvasURL);
             setPalette(paletteURL);
+            setColoredImg(coloredImgURL);
             
         }
         catch(err){
@@ -164,16 +168,21 @@ const Generator = forwardRef((_, ref) => {
 
             </div>)}
             
-            {combinedImg && canvas && palette && <div className={styles.resultImages}>
+            {combinedImg && canvas && palette && coloredImgURL && <div className={styles.resultImages}>
                 <figure>
+                    {<img src={coloredImg} className={styles.result_img} alt="Colored Image" />}
                     {<img src={combinedImg} className={styles.result_img} alt="Combined Image" />}
                     <div className={styles.download_buttons}>
+                        <a href={palette} download="palette.png">
+                            <button>Download Colored Canvas</button>
+                        </a>
+
                         <a href={combinedImg} download="combined_image.png">
-                            <button>Download Entire Image</button>
+                            <button>Download Entire Desaturated Image</button>
                         </a>
 
                         <a href={canvas} download="canvas.png">
-                            <button>Download Canvas</button>
+                            <button>Download Desaturated Canvas</button>
                         </a>
 
                         <a href={palette} download="palette.png">
