@@ -28,7 +28,6 @@ def paint_by_numbers_gen(img, num_colors, force_scale = True):
         start_time = time.time()
         
         print("Desaturating")
-        print(clustered_img.shape)
         desaturated_img = desaturate(clustered_img, 0.1)
 
         print("Combining edges and photo")

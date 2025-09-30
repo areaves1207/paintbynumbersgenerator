@@ -52,7 +52,7 @@ async def create_upload_img(file: UploadFile = File(...), numColors: int = Form(
     
     print(f"Image {file.filename} decoded successfully")
     colored_img, combined_img, canvas, palette = paint_by_numbers_gen(img_np, numColors)
-    if(combined_img is None or canvas is None or palette is None):
+    if(combined_img is None or canvas is None or palette is None or colored_img is None):
         return Response(status_code=204)
     #conv imgs to PIL    
     combined_img = Image.fromarray(combined_img)
