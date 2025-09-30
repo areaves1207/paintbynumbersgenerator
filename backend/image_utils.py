@@ -63,7 +63,5 @@ def desaturate(img, saturation_scale = 0.5):
     
     new_hsv = cv.merge([h, s, v])
     desat_img = cv.cvtColor(new_hsv, cv.COLOR_HSV2BGR)
-    print(desat_img.shape)
-    display_image(desat_img)
     return desat_img
     
