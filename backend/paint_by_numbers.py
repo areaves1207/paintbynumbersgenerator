@@ -1,6 +1,6 @@
 from palette import add_padding, draw_palette_onto_img, generate_palette
 from color_clustering import k_means_clustering
-from image_utils import setup_image, display_dual_imgs, combine_images
+from image_utils import setup_image, desaturate, combine_images
 import edge_detector
 from number_drawing import draw_numbers_pil
 import time
@@ -27,10 +27,13 @@ def paint_by_numbers_gen(img, num_colors, force_scale = True):
         print("Canny edge detector finished in: ", (time.time() - start_time) )
         start_time = time.time()
         
+        print("Desaturating")
+        print(clustered_img.shape)
+        desaturated_img = desaturate(clustered_img, 0.1)
 
         print("Combining edges and photo")
         start_time = time.time()
-        combined = combine_images(clustered_img.copy(), edges.copy())
+        combined = combine_images(desaturated_img.copy(), edges.copy())
 
         print("Configuring numbers")
         start_time = time.time()

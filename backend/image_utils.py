@@ -46,7 +46,7 @@ def display_dual_imgs(img1, img2):
     
 
 def combine_images(img, edges):
-    img[edges == 255] = 0
+    img[edges == 255] = 90 #turn pixels a grey instead of black
     return img
 
 def display_image(img, title="figure"):
@@ -54,3 +54,16 @@ def display_image(img, title="figure"):
     plt.imshow(img)  
     plt.axis('off')      
     plt.show() 
+    
+def desaturate(img, saturation_scale = 0.5):
+    hsv_img = cv.cvtColor(img, cv.COLOR_BGR2HSV)
+    h, s, v = cv.split(hsv_img)
+    
+    s = cv.multiply(s, saturation_scale).astype(np.uint8)
+    
+    new_hsv = cv.merge([h, s, v])
+    desat_img = cv.cvtColor(new_hsv, cv.COLOR_HSV2BGR)
+    print(desat_img.shape)
+    display_image(desat_img)
+    return desat_img
+    
