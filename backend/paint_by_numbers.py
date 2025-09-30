@@ -32,11 +32,13 @@ def paint_by_numbers_gen(img, num_colors, force_scale = True):
 
         print("Combining edges and photo")
         start_time = time.time()
-        combined = combine_images(desaturated_img.copy(), edges.copy())
+        combined_desat = combine_images(desaturated_img.copy(), edges.copy())
+        combined_clustered = combine_images(clustered_img.copy(), edges.copy())
 
         print("Configuring numbers")
         start_time = time.time()
-        canvas = draw_numbers_pil(combined, center_of_masses)
+        canvas = draw_numbers_pil(combined_desat, center_of_masses)
+        numbered_clustered = draw_numbers_pil(combined_clustered, center_of_masses)
 
         print("Drawing palete")
         start_time = time.time()
@@ -49,7 +51,7 @@ def paint_by_numbers_gen(img, num_colors, force_scale = True):
         combined_image = draw_palette_onto_img(padded_img, palette)
 
         print("Image complete. Total generation time: ",  (time.time() - total_time_start))
-        return clustered_img, combined_image, canvas, palette
+        return numbered_clustered, combined_image, canvas, palette
     except:
         print("Error in processing")
         return None
