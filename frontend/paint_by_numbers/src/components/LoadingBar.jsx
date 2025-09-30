@@ -10,6 +10,11 @@ function LoadingBar() {
     const maxProgress = 95;
     const delay = isUploading ? 450 : 1995
 
+    const startTime = Date.now();
+    const duration = 10000;
+    setProgressValue(Math.min(((Date.now() - startTime) / duration) * maxProgress, maxProgress));
+
+
     const interval = setInterval(() => {
       setProgressValue(prev => {
         if (prev >= maxProgress) {
