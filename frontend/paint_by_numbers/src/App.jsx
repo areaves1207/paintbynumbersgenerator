@@ -44,8 +44,8 @@ function App() {
           This project was made after I kept seeing instagram ads for paint by number kits available for purchase.
           After recently taking a computer vision class last year, I decided it would be fun to work on something similar
           in my free time. Over the last few weeks, I've spent a couple hours a day working from the ground up,
-          using what I learned in my classes for the back end, and learning a ton of brand new stuff with React, HTML, CSS,
-          and other things for my front end.
+          using what I learned in my classes for the backend, and learning a ton of brand new stuff with React, HTML, CSS,
+          and other things for my frontend.
         </h3>
 
         <h4>
@@ -55,7 +55,7 @@ function App() {
         </h4>
 
         <h4>
-          This site is hosted by Vercel and the back end is hosted by Render. FastAPI is used to connect everything.
+          This site is hosted by Vercel and the backend is hosted by Render. FastAPI is used to connect everything.
           Since both are free hosting sites, the input and output is limited, and so the wait times for generating an
           image are unfortunately longer than I'd like and the outputs have to be pretty small (640x480).
         </h4>

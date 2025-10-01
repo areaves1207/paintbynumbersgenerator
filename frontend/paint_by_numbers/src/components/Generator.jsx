@@ -3,6 +3,7 @@ import X_img from './images/x_error.jpg';
 import styles from "./generator.module.css"
 import JSZip from "jszip";
 import { forwardRef, useState } from "react";
+import LoadingBar from "./LoadingBar";
 
 
 const Generator = forwardRef((_, ref) => {
@@ -119,12 +120,7 @@ const Generator = forwardRef((_, ref) => {
             setCombinedImg(combinedImgURL);
             setCanvas(canvasURL);
             setPalette(paletteURL);
-            setColoredImg(coloredImgURL);
-
-            if(combinedImg == null || combinedImg == null || palette == null || coloredImg == null){
-                console.error("Some image is null...");
-            }
-            
+            setColoredImg(coloredImgURL);            
         }
         catch(err){
             console.error("Upload failed; ", err);
@@ -160,6 +156,7 @@ const Generator = forwardRef((_, ref) => {
                     :
                     (<div className={styles.spinner}>
                         <SpinnerLoader action={"Generating..."}/>
+                        <LoadingBar></LoadingBar>
                     </div>)
                 }
 
