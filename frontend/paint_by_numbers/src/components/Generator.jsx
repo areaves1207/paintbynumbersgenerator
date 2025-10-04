@@ -175,15 +175,15 @@ const Generator = forwardRef((_, ref) => {
                     {<img src={combinedImg} className={styles.result_img} alt="Combined Image" />}
                     <div className={styles.download_buttons}>
                         <a href={coloredImg} download="colored_image.png">
-                            <button>Download Colored Canvas</button>
+                            <button>Download Colored Image</button>
                         </a>
 
                         <a href={combinedImg} download="combined_image.png">
-                            <button>Download Entire Desaturated Image</button>
+                            <button>Download Canvas + Palette</button>
                         </a>
 
                         <a href={canvas} download="canvas.png">
-                            <button>Download Desaturated Canvas</button>
+                            <button>Download Canvas</button>
                         </a>
 
                         <a href={palette} download="palette.png">
