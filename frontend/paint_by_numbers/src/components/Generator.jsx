@@ -1,5 +1,5 @@
 import SpinnerLoader from "./SpinnerLoader";
-import X_img from './images/x_error.jpg';
+import X_img from './images/x_error.png';
 import styles from "./generator.module.css"
 import JSZip from "jszip";
 import { forwardRef, useState } from "react";
@@ -123,6 +123,7 @@ const Generator = forwardRef((_, ref) => {
             setColoredImg(coloredImgURL);            
         }
         catch(err){
+            setFailure(true);
             console.error("Upload failed; ", err);
         }
         setGenerating(false);
@@ -163,7 +164,7 @@ const Generator = forwardRef((_, ref) => {
                 {failure && 
                     <div className={styles.fail}>
                         <img className={styles.fail_img} src={X_img}></img>
-                        <p>Error. Failed to generate.</p>
+                        <p>Error. Failed to generate; too much traffic. Try again in a few minutes</p>
                     </div>
                 }
 
