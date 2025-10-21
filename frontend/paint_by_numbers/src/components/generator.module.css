@@ -115,7 +115,7 @@ input[type="checkbox"] {
 }
 
 .imageOptions{
-    max-width: 50%;
+    width: 50vh;
     align-items: center;
     text-align: center;
 }
