@@ -55,6 +55,7 @@ input[type="checkbox"] {
 .numColors{
     display: flex;
     flex-direction: column;
+    align-self: center;
     padding-bottom: 5vh;
 }
 
@@ -108,5 +109,13 @@ input[type="checkbox"] {
 }
 
 .fail_img{
+    max-height: 10%;
+    max-width: 10%;
     margin-bottom: 2vh;
+}
+
+.imageOptions{
+    max-width: 50%;
+    align-items: center;
+    text-align: center;
 }

@@ -164,7 +164,7 @@ const Generator = forwardRef((_, ref) => {
                 {failure && 
                     <div className={styles.fail}>
                         <img className={styles.fail_img} src={X_img}></img>
-                        <p>Error. Failed to generate; too much traffic. Try again in a few minutes</p>
+                        <p>Error. Failed to generate; too much traffic. Try again in a few minutes.</p>
                     </div>
                 }
 
